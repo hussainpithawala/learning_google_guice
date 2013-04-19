@@ -14,24 +14,17 @@ import org.packt.supplier.SearchRS;
 import org.packt.utils.OutputPreference;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
 public class FlightEngine {
-	private int maxResults;
 	
-	private FlightSupplier csvFlightSupplier;
+	@Inject
+	@CSV
+	private Provider<FlightSupplier> csvSupplierProvider;
 	
 	private FlightSupplier xmlFlightSupplier;
 	
-	public int getMaxResults() {
-		return maxResults;
-	}
-
-	@Inject
-	public void setMaxResults(@Named("maxResults")int maxResults) {
-		this.maxResults = maxResults;
-	}
-
 	public FlightSupplier getXmlFlightSupplier() {
 		return xmlFlightSupplier;
 	}
@@ -40,26 +33,13 @@ public class FlightEngine {
 	public void setXmlFlightSupplier(@Named("xmlSupplier")FlightSupplier xmlFlightSupplier) {
 		this.xmlFlightSupplier = xmlFlightSupplier;
 	}
-
-	@Inject
-	public FlightEngine(@CSV FlightSupplier flightSupplier) {
-		this.csvFlightSupplier = flightSupplier;
-	}
 	
-	public FlightSupplier getFlightSupplier() {
-		return csvFlightSupplier;
-	}
-
-	public void setFlightSupplier(FlightSupplier flightSupplier) {
-		this.csvFlightSupplier = flightSupplier;
-	}
-
 	public List<SearchRS> processRequest(SearchRQ flightSearchRQ) {
 		List<SearchRS> responseList = new ArrayList<SearchRS>();	
 
 		boolean criteriaMatch = false;
 
-		for(SearchRS flightSearchRS : csvFlightSupplier.getResults()){
+		for(SearchRS flightSearchRS : csvSupplierProvider.get().getResults()){
 			if(flightSearchRS.getArrivalLocation().equals(
 					flightSearchRQ.getArrival_location())
 					||

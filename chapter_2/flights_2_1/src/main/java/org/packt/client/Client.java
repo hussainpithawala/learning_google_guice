@@ -48,13 +48,14 @@ public class Client
     		}
         }
         
-        class FlightEngineModule implements Module{
+        class FlightEngineModule extends AbstractModule{
         	@Override
-    		public void configure(Binder binder) {
-    			binder.bind(FlightSupplier.class).annotatedWith(CSV.class).to(CSVSupplier.class);
-    			binder.bind(FlightSupplier.class).
+    		public void configure() {
+    			bind(FlightSupplier.class).annotatedWith(CSV.class).to(CSVSupplier.class);
+    			bind(FlightSupplier.class).
     				annotatedWith(Names.named("xmlSupplier")).
     					toInstance(new XMLSupplier());
+    			bindConstant().annotatedWith(Names.named("maxResults")).to(10);
     		}
         }
         
