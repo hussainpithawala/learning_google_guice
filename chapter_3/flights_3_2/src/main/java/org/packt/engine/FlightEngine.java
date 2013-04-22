@@ -8,6 +8,7 @@ import java.util.List;
 import org.packt.client.SearchRQ;
 import org.packt.exceptions.NoCriteriaMatchException;
 import org.packt.exceptions.NoFlightAvailableException;
+import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.SearchRS;
@@ -21,7 +22,8 @@ public class FlightEngine {
 	
 	@Inject
 	@CSV
-	private Provider<FlightSupplier> csvSupplierProvider;
+	@InScope
+	private Provider<FlightSupplier>csvSupplierProvider;
 	
 	private FlightSupplier xmlFlightSupplier;
 	

@@ -13,8 +13,7 @@ public class FlightEngineModule extends AbstractModule {
 	@Override
 	public void configure() {
 		bind(FlightSupplier.class).
-			annotatedWith(CSV.class).
-				toProvider(CSVSupplierProvider.class);
+			annotatedWith(CSV.class).toProvider(CSVSupplierProvider.class);
 		bind(FlightSupplier.class).
 			annotatedWith(Names.named("xmlSupplier")).
 				to(XMLSupplier.class).asEagerSingleton();
