@@ -28,8 +28,6 @@ public class CSVSupplier {
 	}
 
 	private void loadCSVFiles() {
-		// Directory path here
-
 		String fileName;
 		File folder = new File(csvPath);
 		File[] listOfFiles = folder.listFiles();

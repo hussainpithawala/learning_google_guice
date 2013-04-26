@@ -15,7 +15,7 @@ import com.google.inject.name.Named;
 
 import au.com.bytecode.opencsv.CSVReader;
 
-public class LocalSupplier {
+public class CSVSupplier {
 	Set<SearchRS> searchResponses = new TreeSet<SearchRS>();
 	
 	@Inject @Named("csvPath")
@@ -29,7 +29,7 @@ public class LocalSupplier {
 		this.csvPath = csvPath;
 	}
 
-	public LocalSupplier() {
+	public CSVSupplier() {
 	
 	}
 

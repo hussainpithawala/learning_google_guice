@@ -16,11 +16,9 @@ import org.packt.supplier.XMLSupplier;
 import org.packt.utils.FlightUtils;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.Module;
 import com.google.inject.name.Names;
 
 public class Client 
@@ -37,7 +35,6 @@ public class Client
     		public void configure() {
     			bind(String.class).annotatedWith(Names.named("csvPath")).toInstance("./flightCSV/");
     			bind(String.class).toInstance("./flightCSV/");
-    			
     			try {
 					bind(File.class).toConstructor(File.class.getConstructor(String.class));
 				} catch (SecurityException e) {
@@ -56,6 +53,7 @@ public class Client
     				annotatedWith(Names.named("xmlSupplier")).
     					toInstance(new XMLSupplier());
     			bindConstant().annotatedWith(Names.named("maxResults")).to(10);
+    			
     		}
         }
         

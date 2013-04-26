@@ -1,41 +1,45 @@
 package org.packt.client;
 
+import static org.packt.utils.FlightUtils.parseDate;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-
 import org.packt.engine.FlightEngine;
-import org.packt.supplier.LocalSupplier;
+import org.packt.supplier.CSVSupplier;
 import org.packt.supplier.SearchRS;
-
-import com.google.inject.Binder;
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.Module;
 import com.google.inject.name.Names;
-
-import static org.packt.utils.FlightUtils.parseDate;
 
 public class Client 
 {
     public static void main( String[] args )
     {
-    	Client client = new Client();
+    	/**
+    	 * Guice Bootstrapping code
+    	 */
+        class CSVSupplierModule extends AbstractModule{
+    		@Override
+    		public void configure() {
+    			bindConstant().annotatedWith(Names.named("csvPath")).to("./flightCSV/");
+    		}
+        }
+        
+    	Injector injector = Guice.createInjector(new CSVSupplierModule());
+    	Client client = injector.getInstance(Client.class);
+    	
     	client.makeRequest();
     }
     
     public Client(){
     }
     
+    @Inject
     private FlightEngine flightEngine;
     
     public void makeRequest(){
-    	/**
-    	 * Guice Bootstrapping code
-    	 */
-    	
-    	Injector injector = Guice.createInjector(new LocalSupplierModule(),new FlightEngineModule());
-    	flightEngine = injector.getInstance(FlightEngine.class);
     	
     	SearchRQ searchRQ = new SearchRQ();
 		
@@ -60,17 +64,5 @@ public class Client
     	
     }
     
-    class LocalSupplierModule implements Module{
-		@Override
-		public void configure(Binder binder) {
-			binder.bindConstant().annotatedWith(Names.named("csvPath")).to("./flightCSV/");
-		}
-    }
-    
-    class FlightEngineModule implements Module{
-    	@Override
-		public void configure(Binder binder) {
-			binder.bind(LocalSupplier.class).toInstance(new LocalSupplier());
-		}
-    }
+
 }

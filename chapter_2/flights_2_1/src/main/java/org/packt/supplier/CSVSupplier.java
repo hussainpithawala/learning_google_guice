@@ -66,8 +66,7 @@ public class CSVSupplier implements FlightSupplier{
 				fileName = listOfFiles[i].getName();
 				if (fileName.endsWith(".csv") || fileName.endsWith(".CSV")) {
 					CSVReader reader;
-					
-					
+
 					try {
 						reader = new CSVReader(new FileReader(csvPath + fileName));
 						String[] nextLine;

@@ -8,7 +8,7 @@ import java.util.List;
 import org.packt.client.SearchRQ;
 import org.packt.exceptions.NoCriteriaMatchException;
 import org.packt.exceptions.NoFlightAvailableException;
-import org.packt.supplier.LocalSupplier;
+import org.packt.supplier.CSVSupplier;
 import org.packt.supplier.SearchRS;
 import org.packt.utils.OutputPreference;
 
@@ -17,18 +17,15 @@ import com.google.inject.Inject;
 public class FlightEngine {
 	
 	@Inject
-	private LocalSupplier localSupplier;
+	private CSVSupplier cSVSupplier;
 	
 	
-	public LocalSupplier getLocalProducer() {
-		return localSupplier;
+	public CSVSupplier getCSVSupplier() {
+		return cSVSupplier;
 	}
 
-	public void setLocalProducer(LocalSupplier localSupplier) {
-		this.localSupplier = localSupplier;
-	}
-
-	public FlightEngine() {
+	public void setCSVSupplier(CSVSupplier cSVSupplier) {
+		this.cSVSupplier = cSVSupplier;
 	}
 
 	public List<SearchRS> processRequest(SearchRQ flightSearchRQ) {
@@ -36,7 +33,7 @@ public class FlightEngine {
 
 		boolean criteriaMatch = false;
 
-		for(SearchRS flightSearchRS : localSupplier.getResults()){
+		for(SearchRS flightSearchRS : cSVSupplier.getResults()){
 			if(flightSearchRS.getArrivalLocation().equals(
 					flightSearchRQ.getArrival_location())
 					||

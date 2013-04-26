@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import org.packt.client.SearchRQ;
 import org.packt.exceptions.NoCriteriaMatchException;
@@ -16,7 +17,6 @@ import org.packt.utils.OutputPreference;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.name.Named;
 
 public class FlightEngine {
 	
@@ -25,15 +25,27 @@ public class FlightEngine {
 	@InScope
 	private Provider<FlightSupplier>csvSupplierProvider;
 	
-	private FlightSupplier xmlFlightSupplier;
+	private Set<FlightSupplier> extraSuppliers;
+
+	@Inject
+	public void setExtraSuppliers(Set<FlightSupplier> extraSuppliers) {
+		this.extraSuppliers = extraSuppliers;
+	}
+
+	public Set<FlightSupplier> getExtraSuppliers() {
+		return extraSuppliers;
+	}
+
 	
-	public FlightSupplier getXmlFlightSupplier() {
-		return xmlFlightSupplier;
+	private Set<String> messages;
+
+	public Set<String> getMessages() {
+		return messages;
 	}
 
 	@Inject
-	public void setXmlFlightSupplier(@Named("xmlSupplier")FlightSupplier xmlFlightSupplier) {
-		this.xmlFlightSupplier = xmlFlightSupplier;
+	public void setMessages(Set<String> messages) {
+		this.messages = messages;
 	}
 	
 	public List<SearchRS> processRequest(SearchRQ flightSearchRQ) {
