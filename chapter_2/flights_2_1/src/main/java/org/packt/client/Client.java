@@ -3,9 +3,13 @@ package org.packt.client;
 import static org.packt.utils.FlightUtils.parseDate;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import org.packt.engine.FlightEngine;
 import org.packt.supplier.CSV;
@@ -14,6 +18,8 @@ import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.SearchRS;
 import org.packt.supplier.XMLSupplier;
 import org.packt.utils.FlightUtils;
+
+import au.com.bytecode.opencsv.CSVParser;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -33,8 +39,9 @@ public class Client
         class CSVSupplierModule extends AbstractModule{
     		@Override
     		public void configure() {
-    			bind(String.class).annotatedWith(Names.named("csvPath")).toInstance("./flightCSV/");
+    			//bind(String.class).annotatedWith(Names.named("csvPath")).toInstance("./flightCSV/");
     			bind(String.class).toInstance("./flightCSV/");
+    			Names.bindProperties(binder(), csvProperties());
     			try {
 					bind(File.class).toConstructor(File.class.getConstructor(String.class));
 				} catch (SecurityException e) {
@@ -42,6 +49,28 @@ public class Client
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
 				}
+    		}
+    		
+    		public Properties csvProperties(){
+    			Properties properties = new Properties();
+    			FileReader fileReader;
+				try {
+					fileReader = new FileReader(new File("./properties/csv.properties"));
+					try {
+						properties.load(fileReader);
+					}catch (IOException e) {
+						e.printStackTrace();
+					}finally{
+						try {
+							fileReader.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+    			return properties;
     		}
         }
         
@@ -53,7 +82,6 @@ public class Client
     				annotatedWith(Names.named("xmlSupplier")).
     					toInstance(new XMLSupplier());
     			bindConstant().annotatedWith(Names.named("maxResults")).to(10);
-    			
     		}
         }
         

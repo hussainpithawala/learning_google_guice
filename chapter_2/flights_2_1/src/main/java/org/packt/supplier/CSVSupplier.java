@@ -29,7 +29,7 @@ public class CSVSupplier implements FlightSupplier{
 		this.csvFolder = csvFolder;
 	}
 
-	@Inject @Named("csvPath")
+	@Inject @Named("csv.folder")
 	private String csvPath;
 	
 	public String getCsvPath() {
