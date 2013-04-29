@@ -1,0 +1,17 @@
+.formContent{
+	position:absolute;
+	left:400px;
+	top:150px;
+	width:300px;
+	border:1px solid
+}
+
+.formElement{
+	position:relative;
+	align:left;
+    font-weight:bold;
+}
+
+.formCell{
+	position:relative;
+}

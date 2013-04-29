@@ -10,11 +10,10 @@ import java.text.ParseException;
 import java.util.Set;
 import java.util.TreeSet;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
-
-import au.com.bytecode.opencsv.CSVReader;
 
 @Singleton
 public class CSVSupplier implements FlightSupplier{
@@ -53,9 +52,8 @@ public class CSVSupplier implements FlightSupplier{
 				if (fileName.endsWith(".csv") || fileName.endsWith(".CSV")) {
 					CSVReader reader;
 					
-					
 					try {
-						reader = new CSVReader(new FileReader(csvFolder.getName()+"/" + fileName));
+						reader = new CSVReader(new FileReader(csvFolder.getAbsolutePath()+"/" + fileName));
 						String[] nextLine;
 						int counter = 0;
 						
@@ -72,7 +70,6 @@ public class CSVSupplier implements FlightSupplier{
 									.parseDouble(nextLine[5]));
 							flightSearchRS.setFare(Float
 									.parseFloat(nextLine[6]));
-
 							searchResponses.add(flightSearchRS);
 
 							counter++;

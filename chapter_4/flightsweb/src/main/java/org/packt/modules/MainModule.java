@@ -10,7 +10,7 @@ import com.google.inject.Module;
 public class MainModule extends AbstractModule {
 	@Override
 	protected void configure() {
-		
+		System.out.println("==============================> loading all modules");
 		try {
 			ClassPath classPath = ClassPath.from(MainModule.class.getClassLoader());
 			for(ClassInfo classInfo : classPath.getTopLevelClassesRecursive(MainModule.class.getPackage().getName())){
