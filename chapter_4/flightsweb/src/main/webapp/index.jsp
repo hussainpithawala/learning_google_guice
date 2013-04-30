@@ -5,29 +5,68 @@
 <body>
 	<form action="/flightsweb/response" method="GET" target="_blank">
 	<div class="formContent">
-		<div class="formElement">
-			From :
-		</div>
-		<div class="formCell">
-			<input type="text" name="source"/>
-		</div>
-		<div class="formElement">
-			To :
-		</div>
-		<div class="formCell">
-			<input type="text" name="destination"/>
+		<div class="formName">
+			<span>
+				<p class="textElement">
+					Flight Search form
+				</p>
+			<span>
 		</div>
 		<div class="formElement">
-			Date :
+			<span>
+				<p class="textElement">
+					From :		
+				</p>
+			<span>
 		</div>
 		<div class="formCell">
-			<input type="text" name="date"/>
+					<span>
+				<p class="textElement">
+					<input type="text" name="source"/>		
+				</p>
+			<span>
 		</div>
 		<div class="formElement">
-			
+			<span>
+				<p class="textElement">
+					To :		
+				</p>
+			<span>
 		</div>
 		<div class="formCell">
-			<input type="submit" name="submit" value="submit"/>
+			<span>
+				<p class="textElement">
+					<input type="text" name="destination"/>					
+				</p>
+			</span>
+		</div>
+		<div class="formElement">
+			<span>
+				<p class="textElement">
+					Date :		
+				</p>
+			</span>
+		</div>
+		<div class="formCell">
+			<span>
+				<p class="textElement">
+					<input type="text" name="date"/>					
+				</p>
+			</span>
+		</div>
+		<div class="formElement">
+			<span>
+				<p class="textElement">
+					&nbsp;
+				</p>
+			</span>
+		</div>
+		<div class="formCell">
+			<span>
+				<p class="textElement">
+					<input type="submit" name="Submit" value="submit"/>					
+				</p>
+			</span>
 		</div>
 	</div>		
 	</form>

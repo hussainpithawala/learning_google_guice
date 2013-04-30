@@ -1,19 +1,36 @@
+.textElement{
+	text-align:center;
+}
+
+.formName{
+	width: 100%;
+	height: 30%;
+	position: relative;
+	border-bottom: 1px solid black;
+	text-align: center;
+}
+
 .formContent{
-	position:absolute;
-	left:400px;
-	top:150px;
-	width:300px;
-	border:1px solid
+	position: absolute;
+	left: 400px;
+	top: 150px;
+	width: 300px;
+	border: 1px solid black;
+	border-collapse: collapse;
 }
 
 .formElement{
-	position:relative;
-	align:left;
-    font-weight:bold;
+	position: relative;
+	font-weight: bold;
+	float: left;
+	width: 30%;
 }
 
 .formCell{
 	position:relative;
+	width:100%;
+	border-bottom:1px solid black;
+	border-collapse:inherit;
 }
 
 .responseContainer{

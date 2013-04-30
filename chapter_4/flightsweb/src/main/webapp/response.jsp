@@ -27,7 +27,6 @@
 		</div>			
 	  </div>	
 	  <c:forEach var="searchRS" items="${sessionScope.responseList}">
-		
 		<div class="responseElement">
 			<c:out value="${searchRS.flightNumber}"/>
 		</div>

@@ -38,8 +38,8 @@ public class FlightServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		try {
-			searchRQ.setArrival_location(request.getParameter("source"));
-			searchRQ.setDeparture_location(request.getParameter("destination"));
+			searchRQ.setArrival_location(request.getParameter("destination"));
+			searchRQ.setDeparture_location(request.getParameter("source"));
 
 			Date flightDate = null;
 
