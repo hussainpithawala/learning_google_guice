@@ -1,9 +1,12 @@
 package org.packt.supplier;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class SearchRS implements Comparable<SearchRS>{
+public class SearchRS implements Comparable<SearchRS>,Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private String flightNumber;
 	private String departureLocation;
 	private String arrivalLocation;
