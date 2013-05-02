@@ -2,6 +2,7 @@ package org.packt.modules;
 
 import java.util.Set;
 
+import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.JSONSupplier;
@@ -19,7 +20,7 @@ public class FlightEngineModule extends AbstractModule {
 	@Override
 	public void configure() {
 		bind(FlightSupplier.class).
-			annotatedWith(CSV.class).toProvider(CSVSupplierProvider.class);
+			annotatedWith(CSV.class).toProvider(CSVSupplierProvider.class).in(InScope.class);
 		
 		bind(FlightSupplier.class).
 			annotatedWith(Names.named("xmlSupplier")).

@@ -1,11 +1,11 @@
 package org.packt.supplier.provider;
 
 import java.io.File;
+import java.util.Calendar;
 
 import org.packt.supplier.CSVSupplier;
 
 import com.google.inject.Provider;
-
 public class CSVSupplierProvider implements Provider<CSVSupplier> {
 	private long timeStamp;
 
@@ -24,14 +24,14 @@ public class CSVSupplierProvider implements Provider<CSVSupplier> {
 		csvSupplier.setCsvFolder(csvFolder);		
 	}
 	
-	@Override
 	public CSVSupplier get() {
-		if(csvSupplier == null)
+		if(csvSupplier == null || !inScope())
 			newSupplier();
 		return csvSupplier;
 	}
 	
 	public boolean inScope(){
-		return timeStamp == csvFolder.lastModified();
+		Long currentTimestamp = Calendar.getInstance().getTime().getTime();
+		return ((currentTimestamp - timeStamp) > 6000 ? false : true);
 	}
 }

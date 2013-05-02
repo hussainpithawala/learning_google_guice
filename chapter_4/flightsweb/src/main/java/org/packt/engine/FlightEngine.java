@@ -22,8 +22,7 @@ public class FlightEngine {
 	
 	@Inject
 	@CSV
-	@InScope
-	private Provider<FlightSupplier>csvSupplierProvider;
+	private Provider<FlightSupplier> flightSupplierProvider;
 	
 	private Set<FlightSupplier> extraSuppliers;
 
@@ -53,7 +52,7 @@ public class FlightEngine {
 
 		boolean criteriaMatch = false;
 
-		for(SearchRS flightSearchRS : csvSupplierProvider.get().getResults()){
+		for(SearchRS flightSearchRS : flightSupplierProvider.get().getResults()){
 			if(flightSearchRS.getArrivalLocation().equals(
 					flightSearchRQ.getArrival_location())
 					||

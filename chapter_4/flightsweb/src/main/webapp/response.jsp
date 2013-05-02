@@ -40,7 +40,7 @@
 		</div>
 	
 		<div class="responseElement">
-			<c:out value="${searchRS.fare}"/>
+			$<c:out value="${searchRS.fare}"/>
 		</div>
 	  </c:forEach>
 	</div>

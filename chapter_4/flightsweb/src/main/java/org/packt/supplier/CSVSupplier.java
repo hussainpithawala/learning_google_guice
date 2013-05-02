@@ -12,10 +12,6 @@ import java.util.TreeSet;
 
 import au.com.bytecode.opencsv.CSVReader;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
-@Singleton
 public class CSVSupplier implements FlightSupplier{
 	Set<SearchRS> searchResponses = new TreeSet<SearchRS>();
 
