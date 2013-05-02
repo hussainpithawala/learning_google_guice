@@ -1,7 +1,9 @@
 package org.packt.supplier.provider;
 
 import java.io.File;
+import java.util.Calendar;
 
+import org.packt.scope.InScope;
 import org.packt.supplier.CSVSupplier;
 
 import com.google.inject.Provider;
@@ -12,10 +14,6 @@ public class CSVSupplierProvider implements Provider<CSVSupplier> {
 	private CSVSupplier csvSupplier;
 	
 	private File csvFolder;
-
-	public void resetSupplier(){
-		csvSupplier = null;
-	}
 	
 	public void newSupplier(){
 		csvFolder = new File("./flightCSV");
@@ -24,14 +22,14 @@ public class CSVSupplierProvider implements Provider<CSVSupplier> {
 		csvSupplier.setCsvFolder(csvFolder);		
 	}
 	
-	@Override
 	public CSVSupplier get() {
-		if(csvSupplier == null)
+		if(csvSupplier == null || !inScope())
 			newSupplier();
 		return csvSupplier;
 	}
 	
 	public boolean inScope(){
-		return timeStamp == csvFolder.lastModified();
+		Long currentTimestamp = Calendar.getInstance().getTime().getTime();
+		return ((currentTimestamp - timeStamp) > 6000 ? false : true);	// Let it go out of scope after 60 seconds.
 	}
 }

@@ -13,10 +13,6 @@ public class CSVSupplierProvider implements Provider<CSVSupplier> {
 	
 	private File csvFolder;
 
-	public void resetSupplier(){
-		csvSupplier = null;
-	}
-	
 	public void newSupplier(){
 		csvFolder = new File("webapps/flightsweb/flightCSV");
 		csvSupplier = new CSVSupplier();
@@ -32,6 +28,6 @@ public class CSVSupplierProvider implements Provider<CSVSupplier> {
 	
 	public boolean inScope(){
 		Long currentTimestamp = Calendar.getInstance().getTime().getTime();
-		return ((currentTimestamp - timeStamp) > 6000 ? false : true);
+		return ((currentTimestamp - timeStamp) > 6000 ? false : true);	// Let it go out of scope after 60 seconds.
 	}
 }

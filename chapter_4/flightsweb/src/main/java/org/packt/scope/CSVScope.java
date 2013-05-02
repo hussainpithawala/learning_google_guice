@@ -9,7 +9,6 @@ import com.google.inject.Scope;
 public class CSVScope implements Scope {
 	@Override
 	public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
-		System.out.println("==========> Custom Scope verifier");
 		unscoped = (Provider<T>) new CSVSupplierProvider();
 		return unscoped;
 	}
