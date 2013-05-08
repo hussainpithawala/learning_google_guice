@@ -17,10 +17,10 @@
 			FlightNumber
 		</div>
 		<div class="responseTag">
-			Departure Location
+			Departure
 		</div>
 		<div class="responseTag">
-			Arrival Location
+			Arrival
 		</div>
 		<div class="responseTag">
 			Fare

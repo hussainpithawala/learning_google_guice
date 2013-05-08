@@ -12,8 +12,8 @@
 
 .formContent{
 	position: absolute;
-	left: 400px;
-	top: 150px;
+	left: 20px;
+	top: 50px;
 	width: 300px;
 	border: 1px solid black;
 	border-collapse: collapse;
@@ -35,8 +35,8 @@
 
 .responseContainer{
 	position:absolute;
-	left:200px;
-	top:150px;
+	left:20px;
+	top:50px;
 	width:800px;
 	border:1px solid;
 }
@@ -59,8 +59,8 @@
 
 .errorContainer{
 	position: absolute;
-	left: 400px;
-	top: 150px;
+	left: 20px;
+	top: 50px;
 	width: 400px;
 	height: 40px;
 	border: 1px solid;

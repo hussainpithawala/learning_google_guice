@@ -7,7 +7,7 @@ import com.google.inject.Provider;
 import com.google.inject.Scope;
 
 public class CSVScope implements Scope {
-	@Override
+	@SuppressWarnings("unchecked")
 	public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped) {
 		unscoped = (Provider<T>) new CSVSupplierProvider();
 		return unscoped;
