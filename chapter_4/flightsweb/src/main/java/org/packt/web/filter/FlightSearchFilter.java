@@ -15,7 +15,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.packt.client.SessionCounter;
+import org.packt.client.RequestCounter;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -28,7 +28,7 @@ public class FlightSearchFilter implements Filter{
 	private Provider<Map<String, String[]>> reqParamMapProvider;
 	
 	@Inject
-	private Provider<SessionCounter> sessionCountProvider;
+	private Provider<RequestCounter> requestCountProvider;
 	
 	public void destroy() {
 		
@@ -62,10 +62,9 @@ public class FlightSearchFilter implements Filter{
 		}
 
 		if(valid){
-			SessionCounter sessionCounter = sessionCountProvider.get();
-			int lastCount = sessionCounter.getSearches();
-			sessionCounter.setSearches(++lastCount);
-			System.out.println("-------------- Current request count --------> " + lastCount);
+			RequestCounter requestCounter = requestCountProvider.get();
+			int lastCount = requestCounter.getSearches();
+			requestCounter.setSearches(++lastCount);
 			chain.doFilter(request, response);
 		}else{
 			((HttpServletRequest)request).getSession().setAttribute("isException", true);
