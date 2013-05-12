@@ -37,21 +37,23 @@ public class CSVSupplier implements FlightSupplier{
 	}
 
 	private void loadCSVFiles() {
-		String fileName;
 
 		File[] listOfFiles = csvFolder.listFiles();
-		
+		System.out.println("CSVFolder -------> " + csvFolder.getAbsolutePath());
+		int counter = 0;
 		for (int i = 0; i < listOfFiles.length; i++) {
-
+			
 			if (listOfFiles[i].isFile()) {
-				fileName = listOfFiles[i].getName();
-				if (fileName.endsWith(".csv") || fileName.endsWith(".CSV")) {
+				File file = listOfFiles[i];
+				
+				System.out.println("File --------> " + file.getAbsolutePath());
+				if (file.getName().endsWith(".csv") || file.getName().endsWith(".CSV")) {
 					CSVReader reader;
 					
 					try {
-						reader = new CSVReader(new FileReader(csvFolder.getAbsolutePath()+"/" + fileName));
+						reader = new CSVReader(new FileReader(file));
 						String[] nextLine;
-						int counter = 0;
+						
 						
 						while ((nextLine = reader.readNext()) != null) {
 
@@ -67,7 +69,6 @@ public class CSVSupplier implements FlightSupplier{
 							flightSearchRS.setFare(Float
 									.parseFloat(nextLine[6]));
 							searchResponses.add(flightSearchRS);
-
 							counter++;
 						}
 					} catch (FileNotFoundException e) {
@@ -81,6 +82,7 @@ public class CSVSupplier implements FlightSupplier{
 				}
 			}
 		}
+		System.out.println("Counter ====> " + counter);
 	}
 
 }

@@ -1,9 +1,11 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/flightsweb/css/flights.css">
+	<link rel="stylesheet" type="text/css" href="css/flights.css">
 </head>
 <body>
-	<form action="/flightsweb/response" method="GET" target="_blank">
+	<s:form action="Search">
 	<div class="formContent">
 		<div class="formName">
 			<span>
@@ -12,63 +14,36 @@
 				</p>
 			<span>
 		</div>
-		<div class="formElement">
-			<span>
-				<p class="textElement">
-					From :		
-				</p>
-			<span>
-		</div>
+
 		<div class="formCell">
 					<span>
 				<p class="textElement">
-					<input type="text" name="source"/>		
-				</p>
-			<span>
-		</div>
-		<div class="formElement">
-			<span>
-				<p class="textElement">
-					To :		
+					<s:textfield name="source" label="From"/>		
 				</p>
 			<span>
 		</div>
 		<div class="formCell">
 			<span>
 				<p class="textElement">
-					<input type="text" name="destination"/>					
-				</p>
-			</span>
-		</div>
-		<div class="formElement">
-			<span>
-				<p class="textElement">
-					Date :		
+					<s:textfield name="destination" label="To"/>					
 				</p>
 			</span>
 		</div>
 		<div class="formCell">
 			<span>
 				<p class="textElement">
-					<input type="text" name="date"/>					
-				</p>
-			</span>
-		</div>
-		<div class="formElement">
-			<span>
-				<p class="textElement">
-					&nbsp;
+					<s:textfield name="date" label="Date"/>					
 				</p>
 			</span>
 		</div>
 		<div class="formCell">
 			<span>
 				<p class="textElement">
-					<input type="submit" name="Submit" value="submit"/>					
+					<s:submit label="Submit"/>					
 				</p>
 			</span>
 		</div>
 	</div>		
-	</form>
+	</s:form>
 </body>
 </html>

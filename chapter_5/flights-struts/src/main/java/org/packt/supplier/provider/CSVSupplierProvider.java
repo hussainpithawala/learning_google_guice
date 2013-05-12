@@ -14,7 +14,7 @@ public class CSVSupplierProvider implements Provider<CSVSupplier> {
 	private File csvFolder;
 
 	public void newSupplier(){
-		csvFolder = new File("webapps/flightsweb/flightCSV");
+		csvFolder = new File("webapps/flights-struts/flightCSV");
 		csvSupplier = new CSVSupplier();
 		timeStamp = csvFolder.lastModified();
 		csvSupplier.setCsvFolder(csvFolder);		
