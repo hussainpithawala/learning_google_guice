@@ -1,4 +1,4 @@
-package org.packt.exceptions;
+package org.packt.client.exceptions;
 
 public class NoFlightAvailableException extends RuntimeException{
 

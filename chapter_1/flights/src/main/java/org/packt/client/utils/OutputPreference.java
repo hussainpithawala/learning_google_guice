@@ -1,4 +1,4 @@
-package org.packt.utils;
+package org.packt.client.utils;
 
 public enum OutputPreference {
 	FARE,DURATION

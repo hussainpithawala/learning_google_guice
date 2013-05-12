@@ -1,4 +1,4 @@
-package org.packt.utils;
+package org.packt.client.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;

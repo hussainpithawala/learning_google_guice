@@ -1,16 +1,16 @@
-package org.packt.engine;
+package org.packt.client.engine;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.packt.consumer.SearchRQ;
-import org.packt.exceptions.NoCriteriaMatchException;
-import org.packt.exceptions.NoFlightAvailableException;
-import org.packt.producer.CSVSupplier;
-import org.packt.producer.SearchRS;
-import org.packt.utils.OutputPreference;
+import org.packt.client.consumer.SearchRQ;
+import org.packt.client.exceptions.NoCriteriaMatchException;
+import org.packt.client.exceptions.NoFlightAvailableException;
+import org.packt.client.producer.CSVSupplier;
+import org.packt.client.producer.SearchRS;
+import org.packt.client.utils.OutputPreference;
 
 public class FlightEngine {
 	private CSVSupplier csvSupplier;

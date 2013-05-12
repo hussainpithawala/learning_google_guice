@@ -1,10 +1,10 @@
-package org.packt.consumer;
+package org.packt.client.consumer;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.packt.utils.OutputPreference;
+import org.packt.client.utils.OutputPreference;
 
 public class SearchRQ {
 	private String departure_location;

@@ -63,12 +63,12 @@ public class CSVSupplier implements FlightSupplier{
 		for (int i = 0; i < listOfFiles.length; i++) {
 
 			if (listOfFiles[i].isFile()) {
-				fileName = listOfFiles[i].getName();
-				if (fileName.endsWith(".csv") || fileName.endsWith(".CSV")) {
+				File file = listOfFiles[i];
+				if (file.getName().endsWith(".csv") || file.getName().endsWith(".CSV")) {
 					CSVReader reader;
 
 					try {
-						reader = new CSVReader(new FileReader(csvPath + fileName));
+						reader = new CSVReader(new FileReader(file));
 						String[] nextLine;
 						int counter = 0;
 						

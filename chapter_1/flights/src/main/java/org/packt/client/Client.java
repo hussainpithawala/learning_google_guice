@@ -1,14 +1,15 @@
-package org.packt;
+package org.packt.client;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import org.packt.consumer.SearchRQ;
-import org.packt.engine.FlightEngine;
-import org.packt.producer.CSVSupplier;
-import org.packt.producer.SearchRS;
-import static org.packt.utils.FlightUtils.parseDate;
+import org.packt.client.consumer.SearchRQ;
+import org.packt.client.engine.FlightEngine;
+import org.packt.client.producer.CSVSupplier;
+import org.packt.client.producer.SearchRS;
+
+import static org.packt.client.utils.FlightUtils.parseDate;
 
 public class Client 
 {

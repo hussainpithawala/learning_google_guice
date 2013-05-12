@@ -1,4 +1,4 @@
-package org.packt.producer;
+package org.packt.client.producer;
 
 import java.util.Date;
 
