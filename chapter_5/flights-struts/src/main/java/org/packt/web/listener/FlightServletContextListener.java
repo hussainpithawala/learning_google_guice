@@ -25,5 +25,4 @@ public class FlightServletContextListener extends GuiceServletContextListener {
 			}
 		});
 	}
-
 }

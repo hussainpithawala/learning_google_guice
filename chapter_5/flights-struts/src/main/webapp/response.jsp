@@ -1,18 +1,12 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="/flightsweb/css/flights.css">
 </head>
 <body>
-	<c:choose>
-	<c:when test="${sessionScope.isException}">
-		<div class="errorContainer">
-			<c:out value="${sessionScope.exceptionMessage}"/>
-		</div>
-	</c:when>
-	<c:otherwise>
-		<div class="responseContainer">
-	  <div>    
+	  <div class="responseContainer">
+	   <div>
 	  	<div class="responseTag">
 			FlightNumber
 		</div>
@@ -25,26 +19,28 @@
 		<div class="responseTag">
 			Fare
 		</div>			
-	  </div>	
-	  <c:forEach var="searchRS" items="${sessionScope.responseList}">
+	  </div>
+	  	
+	  <logic:iterate name="results" id="searchRS">
 		<div class="responseElement">
-			<c:out value="${searchRS.flightNumber}"/>
+			<bean:write name="searchRS" property="flightNumber"/>
 		</div>
 		
 		<div class="responseElement">
-			<c:out value="${searchRS.departureLocation}"/>
+			<bean:write name="searchRS" property="departureLocation"/>
 		</div>
 		
 		<div class="responseElement">
-			<c:out value="${searchRS.arrivalLocation}"/>
+			<bean:write name="searchRS" property="arrivalLocation"/>
 		</div>
 	
 		<div class="responseElement">
-			$<c:out value="${searchRS.fare}"/>
+			<bean:write name="searchRS" property="fare" format="$"/>
 		</div>
-	  </c:forEach>
+	  </logic:iterate>
 	</div>
-	</c:otherwise>
-	</c:choose>
+	<div>
+		<bean:write name="requestCounter" property="searches" format=" "/> requests serverd in current session.
+	</div>
 </body>
 </html>

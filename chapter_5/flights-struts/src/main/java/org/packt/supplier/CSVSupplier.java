@@ -39,14 +39,11 @@ public class CSVSupplier implements FlightSupplier{
 	private void loadCSVFiles() {
 
 		File[] listOfFiles = csvFolder.listFiles();
-		System.out.println("CSVFolder -------> " + csvFolder.getAbsolutePath());
 		int counter = 0;
 		for (int i = 0; i < listOfFiles.length; i++) {
 			
 			if (listOfFiles[i].isFile()) {
 				File file = listOfFiles[i];
-				
-				System.out.println("File --------> " + file.getAbsolutePath());
 				if (file.getName().endsWith(".csv") || file.getName().endsWith(".CSV")) {
 					CSVReader reader;
 					
@@ -82,7 +79,6 @@ public class CSVSupplier implements FlightSupplier{
 				}
 			}
 		}
-		System.out.println("Counter ====> " + counter);
 	}
 
 }
