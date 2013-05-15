@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.ExceptionMapping;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
@@ -23,9 +22,6 @@ import com.opensymphony.xwork2.ActionSupport;
 @Namespace("/")
 @ResultPath(value="/")
 public class FlightSearchAction extends ActionSupport{
-	
-	public FlightSearchAction(){
-	}
 	
 	private static final long serialVersionUID = 1L;
 
@@ -44,20 +40,7 @@ public class FlightSearchAction extends ActionSupport{
 	
 	private List<SearchRS> results;
 	
-	@Action(value="Search",results={
-			@Result(name="success",location="response.jsp"),
-			@Result(name="error",location="error.jsp")
-		},
-			exceptionMappings={
-				@ExceptionMapping(
-						exception="org.packt.exceptions.NoCriteriaMatchException", 
-						result="error",
-						params={"message","No match found for the supplied criteria"}),
-				@ExceptionMapping(
-						exception="org.packt.exceptions.NoFlightAvailableException", 
-						result="error",
-						params={"message","No Flight available exception"})
-			})
+	@Action(value="Search",results={@Result(name="success",location="response.jsp")})
 	public String execute() {
 		
 		SearchRQ flightSearchRQ = provider.get();

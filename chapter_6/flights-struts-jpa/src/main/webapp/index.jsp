@@ -6,10 +6,10 @@
 </head>
 <body>
 	<s:form action="Search">
-	  <s:textfield name="source" label="From"/>		
-	  <s:textfield name="destination" label="To"/>					
-	  <s:textfield name="date" label="Date"/>					
-	  <s:submit label="Submit"/>					
+					<s:textfield name="source" label="From"/>		
+					<s:textfield name="destination" label="To"/>					
+					<s:textfield name="date" label="Date"/>					
+					<s:submit label="Submit"/>					
 	</s:form>
 </body>
 </html>
