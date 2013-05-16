@@ -10,10 +10,10 @@ import java.text.ParseException;
 import java.util.Set;
 import java.util.TreeSet;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-
-import au.com.bytecode.opencsv.CSVReader;
 
 public class CSVSupplier {
 	Set<SearchRS> searchResponses = new TreeSet<SearchRS>();
@@ -71,7 +71,6 @@ public class CSVSupplier {
 									.parseDouble(nextLine[5]));
 							flightSearchRS.setFare(Float
 									.parseFloat(nextLine[6]));
-
 							searchResponses.add(flightSearchRS);
 
 							counter++;
