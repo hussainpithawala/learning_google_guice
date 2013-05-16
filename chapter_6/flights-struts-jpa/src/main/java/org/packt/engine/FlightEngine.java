@@ -9,7 +9,6 @@ import java.util.Set;
 import org.packt.client.SearchRQ;
 import org.packt.exceptions.NoCriteriaMatchException;
 import org.packt.exceptions.NoFlightAvailableException;
-import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.SearchRS;
@@ -17,12 +16,17 @@ import org.packt.utils.OutputPreference;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
 public class FlightEngine {
 	
 	@Inject
 	@CSV
 	private Provider<FlightSupplier> flightSupplierProvider;
+	
+	@Inject
+	@Named("jpa")
+	private FlightSupplier flightJPASupplier;
 	
 	private Set<FlightSupplier> extraSuppliers;
 
@@ -52,7 +56,8 @@ public class FlightEngine {
 
 		boolean criteriaMatch = false;
 
-		for(SearchRS flightSearchRS : flightSupplierProvider.get().getResults()){
+		//for(SearchRS flightSearchRS : flightSupplierProvider.get().getResults()){
+		for(SearchRS flightSearchRS : flightJPASupplier.getResults()){	
 			if(flightSearchRS.getArrivalLocation().equals(
 					flightSearchRQ.getArrival_location())
 					||

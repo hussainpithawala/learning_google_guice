@@ -2,7 +2,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/flightsweb/css/flights.css">
+	<link rel="stylesheet" type="text/css" href="css/flights.css">
 </head>
 <body>
 	  <div class="responseContainer">

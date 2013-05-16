@@ -7,9 +7,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.packt.engine.FlightEngine;
+import org.packt.modules.MainModule;
 import org.packt.supplier.SearchRS;
 
+import com.google.inject.Guice;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.persist.PersistService;
+import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class Client {
 	@Inject
@@ -18,15 +23,32 @@ public class Client {
 	@Inject
 	private SearchRQ searchRQ;
 
+	@Inject
+	private PersistService persistService;
+	
+	private void startService(){
+		if(persistService != null){
+			System.out.println("Starting the PersistService");
+			persistService.start();
+		}
+	}
+	
+	public static void main(String args[]){
+		Injector injector = Guice.createInjector(new JpaPersistModule("flight"), new MainModule());
+    	Client client = injector.getInstance(Client.class);
+    	client.startService();
+    	client.makeRequest();
+	}
+	
 	public void makeRequest() {
-
-		searchRQ.setArrival_location("LHR");
-		searchRQ.setDeparture_location("FRA");
+		
+		searchRQ.setArrival_location("MAD");
+		searchRQ.setDeparture_location("AMS");
 
 		Date flightDate = null;
 
 		try {
-			flightDate = parseDate("20-11-2010");
+			flightDate = parseDate("30-11-2010");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
