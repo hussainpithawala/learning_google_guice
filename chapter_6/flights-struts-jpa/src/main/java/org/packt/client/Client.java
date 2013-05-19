@@ -30,6 +30,7 @@ public class Client {
 		if(persistService != null){
 			System.out.println("Starting the PersistService");
 			persistService.start();
+			
 		}
 	}
 	

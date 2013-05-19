@@ -7,11 +7,6 @@
         <class>org.packt.supplier.SearchRS</class> 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-            
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/flights"/>
-            <property name="javax.persistence.jdbc.user" value="flight"/>
-            <property name="javax.persistence.jdbc.password" value="flight"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.driver" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost/flights"/>

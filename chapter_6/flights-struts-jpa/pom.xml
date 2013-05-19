@@ -36,7 +36,7 @@
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-persist</artifactId>
-			<version>3.0</version>
+			<version>${guice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-struts2</artifactId>
-			<version>3.0</version>
+			<version>${guice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.opencsv</groupId>
