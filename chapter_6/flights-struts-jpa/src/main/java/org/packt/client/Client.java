@@ -28,9 +28,13 @@ public class Client {
 	
 	private void startService(){
 		if(persistService != null){
-			System.out.println("Starting the PersistService");
 			persistService.start();
-			
+		}
+	}
+	
+	private void stopService(){
+		if(persistService != null){
+			persistService.stop();
 		}
 	}
 	
@@ -39,6 +43,7 @@ public class Client {
     	Client client = injector.getInstance(Client.class);
     	client.startService();
     	client.makeRequest();
+    	client.stopService();
 	}
 	
 	public void makeRequest() {
