@@ -33,7 +33,8 @@ public class FlightServletContextListener extends GuiceServletContextListener {
 				serve("/response").with(Key.get(HttpServlet.class, FlightServe.class));
 				bind(HttpServlet.class).annotatedWith(FlightServe.class).to(FlightServlet.class);
 				
-				serve("/").with(IndexServlet.class);				
+				serve("/").with(IndexServlet.class);
+				
 			}
 		});
 	}

@@ -37,22 +37,20 @@ public class CSVSupplier implements FlightSupplier{
 	}
 
 	private void loadCSVFiles() {
-		String fileName;
 
 		File[] listOfFiles = csvFolder.listFiles();
-		
+		int counter = 0;
 		for (int i = 0; i < listOfFiles.length; i++) {
 
 			if (listOfFiles[i].isFile()) {
-				fileName = listOfFiles[i].getName();
-				if (fileName.endsWith(".csv") || fileName.endsWith(".CSV")) {
+				File file = listOfFiles[i];
+				if (file.getName().endsWith(".csv") || file.getName().endsWith(".CSV")) {
 					CSVReader reader;
 					
 					try {
-						reader = new CSVReader(new FileReader(csvFolder.getAbsolutePath()+"/" + fileName));
+						reader = new CSVReader(new FileReader(file));
 						String[] nextLine;
-						int counter = 0;
-						
+
 						while ((nextLine = reader.readNext()) != null) {
 
 							SearchRS flightSearchRS = new SearchRS();
