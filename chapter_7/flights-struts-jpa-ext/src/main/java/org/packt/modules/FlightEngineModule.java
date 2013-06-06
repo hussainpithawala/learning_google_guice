@@ -2,9 +2,6 @@ package org.packt.modules;
 
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-
 import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightJPASupplier;
@@ -15,7 +12,6 @@ import org.packt.supplier.provider.CSVSupplierProvider;
 import org.packt.supplier.provider.MessageProvider;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;

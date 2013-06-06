@@ -9,12 +9,15 @@ import java.util.List;
 import org.packt.engine.FlightEngine;
 import org.packt.supplier.SearchRS;
 
+import com.google.inject.Binding;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 
+import ext.guice.analyst.AnalyzeBindingVisitorImpl;
+import ext.guice.analyst.AnalyzeMultiBindingVisitorImpl;
 import ext.guice.analyst.AssistInstallModule;
 
 public class Client {
@@ -41,6 +44,15 @@ public class Client {
 	
 	public static void main(String args[]){
 		Injector injector = Guice.createInjector(new JpaPersistModule("flight"), new AssistInstallModule("org.packt.modules"));
+
+		AnalyzeBindingVisitorImpl analyzeBindingVisitorImpl = new AnalyzeBindingVisitorImpl();
+		
+		for(Binding<?> binding : injector.getBindings().values()){
+			System.out.println(binding.acceptTargetVisitor(analyzeBindingVisitorImpl));
+			System.out.println(binding.acceptScopingVisitor(analyzeBindingVisitorImpl));
+			System.out.println(binding.acceptTargetVisitor(new AnalyzeMultiBindingVisitorImpl()));
+		}
+		
     	Client client = injector.getInstance(Client.class);
     	client.startService();
     	client.makeRequest();

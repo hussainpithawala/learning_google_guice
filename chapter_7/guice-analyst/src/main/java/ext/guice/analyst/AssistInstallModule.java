@@ -1,18 +1,26 @@
 package ext.guice.analyst;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 import com.google.inject.AbstractModule;
 import com.google.inject.Binder;
+import com.google.inject.Binding;
 import com.google.inject.Module;
+import com.google.inject.Stage;
 import com.google.inject.spi.BindingTargetVisitor;
+import com.google.inject.spi.DefaultElementVisitor;
+import com.google.inject.spi.Element;
+import com.google.inject.spi.Elements;
 import com.google.inject.spi.ProviderInstanceBinding;
 import com.google.inject.spi.ProviderWithExtensionVisitor;
 
-public class AssistInstallModule<T> implements
-		Module,ProviderWithExtensionVisitor<T> {
+public class AssistInstallModule extends AbstractModule{
+	
+	private Set<Module> modules = new HashSet<Module>();
 	
 	private String packageName;
 	
@@ -20,28 +28,37 @@ public class AssistInstallModule<T> implements
 		this.packageName = packageName;
 	}
 
-	public T get() {
-		// TODO Auto-generated method stub
+	public Void get() {
 		return null;
 	}
 
-	public <B, V> V acceptExtensionVisitor(BindingTargetVisitor<B, V> visitor,
-			ProviderInstanceBinding<? extends B> binding) {
-		return null;
-	}
-
-	public void configure(Binder binder) {
+	public void configure() {
 		try {
 			ClassPath classPath = ClassPath.from(AssistInstallModule.class.getClassLoader());
 			for(ClassInfo classInfo : classPath.getTopLevelClassesRecursive(packageName)){
-				if(validateClass(classInfo))
-					binder.install((Module)classInfo.load().newInstance());
+				if(validateClass(classInfo)){
+					Module module = (Module)classInfo.load().newInstance();
+					modules.add(module);
+					install(module);
+				}
 			}			
 		} catch (IOException e) {
 		} catch (InstantiationException e) {
 		} catch (IllegalAccessException e) {
+		}finally{
 		}
 		
+		/**
+		 * Using the following block below, we analyze the various 
+		 * elements being bound for injection, in various modules.
+		 */
+		System.out.println("Visiting the Elements");
+		
+		AnalyzeElementVisitor defaultElementVisitor = new AnalyzeElementVisitor();
+		
+		for(Element element : Elements.getElements(Stage.DEVELOPMENT,modules)){
+			element.acceptVisitor(defaultElementVisitor);
+		}
 	}
 	
 	boolean validateClass(ClassInfo classInfo){
