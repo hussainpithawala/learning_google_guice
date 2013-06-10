@@ -16,8 +16,8 @@ import com.google.inject.Injector;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 
-import ext.guice.analyst.AnalyzeBindingVisitorImpl;
-import ext.guice.analyst.AnalyzeMultiBindingVisitorImpl;
+import ext.guice.analyst.AnalyzeBindingVisitor;
+import ext.guice.analyst.AnalyzeMultiBindingVisitor;
 import ext.guice.analyst.AssistInstallModule;
 
 public class Client {
@@ -45,12 +45,12 @@ public class Client {
 	public static void main(String args[]){
 		Injector injector = Guice.createInjector(new JpaPersistModule("flight"), new AssistInstallModule("org.packt.modules"));
 
-		AnalyzeBindingVisitorImpl analyzeBindingVisitorImpl = new AnalyzeBindingVisitorImpl();
+		AnalyzeBindingVisitor analyzeBindingVisitor = new AnalyzeBindingVisitor();
 		
 		for(Binding<?> binding : injector.getBindings().values()){
-			System.out.println(binding.acceptTargetVisitor(analyzeBindingVisitorImpl));
-			System.out.println(binding.acceptScopingVisitor(analyzeBindingVisitorImpl));
-			System.out.println(binding.acceptTargetVisitor(new AnalyzeMultiBindingVisitorImpl()));
+			System.out.println(binding.acceptTargetVisitor(analyzeBindingVisitor));
+			System.out.println(binding.acceptScopingVisitor(analyzeBindingVisitor));
+			binding.acceptTargetVisitor(new AnalyzeMultiBindingVisitor());
 		}
 		
     	Client client = injector.getInstance(Client.class);

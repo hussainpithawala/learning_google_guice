@@ -51,14 +51,13 @@ public class AssistInstallModule extends AbstractModule{
 		/**
 		 * Using the following block below, we analyze the various 
 		 * elements being bound for injection, in various modules.
-		 */
 		System.out.println("Visiting the Elements");
 		
 		AnalyzeElementVisitor defaultElementVisitor = new AnalyzeElementVisitor();
-		
 		for(Element element : Elements.getElements(Stage.DEVELOPMENT,modules)){
 			element.acceptVisitor(defaultElementVisitor);
 		}
+		*/
 	}
 	
 	boolean validateClass(ClassInfo classInfo){

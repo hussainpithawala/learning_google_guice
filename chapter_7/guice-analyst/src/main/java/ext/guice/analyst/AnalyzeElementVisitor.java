@@ -14,8 +14,8 @@ public class AnalyzeElementVisitor extends DefaultElementVisitor<Void>{
 	  }
 	  
 	  @Override
-	  public <FlightSupplier> Void visit(Binding<FlightSupplier> binding) {
-		  Key<FlightSupplier> key = binding.getKey();
+	  public <String> Void visit(Binding<String> binding) {
+		  Key<String> key = binding.getKey();
 		  System.out.println("Key :" + key.getTypeLiteral());
 		  System.out.println("Annotation : " + key.getAnnotation());
 		  System.out.println("Source : " + binding.getSource());
