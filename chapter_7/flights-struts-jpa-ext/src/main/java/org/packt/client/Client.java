@@ -25,8 +25,8 @@ public class Client {
 	private FlightEngine flightEngine;
 
 	@Inject
-	private SearchRQ searchRQ;
-
+	SearchRQFactory searchRQFactory;
+	
 	@Inject
 	private PersistService persistService;
 	
@@ -61,8 +61,6 @@ public class Client {
 	
 	public void makeRequest() {
 		
-		searchRQ.setArrival_location("MAD");
-		searchRQ.setDeparture_location("AMS");
 
 		Date flightDate = null;
 
@@ -71,8 +69,8 @@ public class Client {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-		searchRQ.setFlightDate(flightDate);
+		
+		SearchRQ searchRQ = searchRQFactory.create("AMS", "MAD", flightDate);
 
 		List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
 
