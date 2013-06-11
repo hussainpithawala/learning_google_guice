@@ -8,11 +8,13 @@ import java.util.Set;
 
 import org.packt.client.SearchRQ;
 import org.packt.exceptions.NoCriteriaMatchException;
+import org.packt.exceptions.NoXlAvailableException;
 import org.packt.exceptions.NoFlightAvailableException;
 import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.SearchRS;
+import org.packt.supplier.provider.XlCheckedProvider;
 import org.packt.utils.OutputPreference;
 
 import com.google.inject.Inject;
@@ -23,7 +25,10 @@ public class FlightEngine {
 	@Inject
 	@CSV
 	@InScope
-	private Provider<FlightSupplier>csvSupplierProvider;
+	private Provider<FlightSupplier> csvSupplierProvider;
+
+	@Inject
+	private XlCheckedProvider<FlightSupplier> xlCheckedProvider;
 	
 	private Set<FlightSupplier> extraSuppliers;
 
@@ -52,23 +57,30 @@ public class FlightEngine {
 		List<SearchRS> responseList = new ArrayList<SearchRS>();	
 
 		boolean criteriaMatch = false;
-
-		for(SearchRS flightSearchRS : csvSupplierProvider.get().getResults()){
-			if(flightSearchRS.getArrivalLocation().equals(
-					flightSearchRQ.getArrival_location())
-					||
-				flightSearchRS.getDepartureLocation().equals(flightSearchRQ.getDeparture_location()))
-				criteriaMatch = true;
-			
-			if (flightSearchRS.getArrivalLocation().equals(
-					flightSearchRQ.getArrival_location())
-					&&
-				flightSearchRS.getDepartureLocation().equals(flightSearchRQ.getDeparture_location())
-					&&
-				(flightSearchRS.getValidDate().compareTo(flightSearchRQ.getFlightDate()) == 0)
-			) {
-				responseList.add(flightSearchRS);
+		
+		try {
+			for(SearchRS flightSearchRS : csvSupplierProvider.get().getResults()){
+				if(flightSearchRS.getArrivalLocation().equals(
+						flightSearchRQ.getArrival_location())
+						||
+					flightSearchRS.getDepartureLocation().equals(flightSearchRQ.getDeparture_location()))
+					criteriaMatch = true;
+				
+				if (flightSearchRS.getArrivalLocation().equals(
+						flightSearchRQ.getArrival_location())
+						&&
+					flightSearchRS.getDepartureLocation().equals(flightSearchRQ.getDeparture_location())
+						&&
+					(flightSearchRS.getValidDate().compareTo(flightSearchRQ.getFlightDate()) == 0)
+				) {
+					responseList.add(flightSearchRS);
+				}
 			}
+			
+			xlCheckedProvider.get().getResults();
+			
+		} catch (NoXlAvailableException e) {
+			e.printStackTrace();
 		}
 		
 		if(!criteriaMatch)

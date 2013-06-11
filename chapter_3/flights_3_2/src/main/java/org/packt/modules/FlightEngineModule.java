@@ -8,6 +8,8 @@ import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.JSONSupplier;
 import org.packt.supplier.XMLSupplier;
+import org.packt.supplier.provider.XlCheckedProvider;
+import org.packt.supplier.provider.XlCheckedSupplierProvider;
 import org.packt.supplier.provider.CSVSupplierProvider;
 import org.packt.supplier.provider.MessageProvider;
 
@@ -16,12 +18,17 @@ import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Names;
+import com.google.inject.throwingproviders.ThrowingProviderBinder;
 public class FlightEngineModule extends AbstractModule {
 
 	@Override
 	public void configure() {
-		bind(FlightSupplier.class).
-			annotatedWith(CSV.class).toProvider(CSVSupplierProvider.class).in(new CSVScope());
+
+		bind(FlightSupplier.class).annotatedWith(CSV.class).toProvider(CSVSupplierProvider.class).in(InScope.class);
+
+		ThrowingProviderBinder.create(binder()).
+			bind(XlCheckedProvider.class, FlightSupplier.class).
+				to(XlCheckedSupplierProvider.class);
 		
 		bind(FlightSupplier.class).
 			annotatedWith(Names.named("xmlSupplier")).

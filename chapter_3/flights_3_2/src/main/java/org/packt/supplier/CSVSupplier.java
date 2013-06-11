@@ -10,13 +10,8 @@ import java.text.ParseException;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
-
 import au.com.bytecode.opencsv.CSVReader;
 
-@Singleton
 public class CSVSupplier implements FlightSupplier{
 	Set<SearchRS> searchResponses = new TreeSet<SearchRS>();
 
@@ -26,12 +21,8 @@ public class CSVSupplier implements FlightSupplier{
 		return csvFolder;
 	}
 
-	public void setCsvFolder(File csvFolder) {
-		this.csvFolder = csvFolder;
-	}
-
-	public CSVSupplier() {
-	
+	public CSVSupplier(File csvFolder){
+			this.csvFolder = csvFolder;
 	}
 
 	public Set<SearchRS> getResults() {

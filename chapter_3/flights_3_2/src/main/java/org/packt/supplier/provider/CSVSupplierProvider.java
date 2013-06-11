@@ -3,7 +3,6 @@ package org.packt.supplier.provider;
 import java.io.File;
 import java.util.Calendar;
 
-import org.packt.scope.InScope;
 import org.packt.supplier.CSVSupplier;
 
 import com.google.inject.Provider;
@@ -17,14 +16,14 @@ public class CSVSupplierProvider implements Provider<CSVSupplier> {
 	
 	public void newSupplier(){
 		csvFolder = new File("./flightCSV");
-		csvSupplier = new CSVSupplier();
+		csvSupplier = new CSVSupplier(csvFolder);
+		
 		timeStamp = csvFolder.lastModified();
-		csvSupplier.setCsvFolder(csvFolder);		
 	}
 	
 	public CSVSupplier get() {
 		if(csvSupplier == null || !inScope())
-			newSupplier();
+				newSupplier();
 		return csvSupplier;
 	}
 	
