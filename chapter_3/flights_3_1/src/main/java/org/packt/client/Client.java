@@ -30,13 +30,10 @@ public class Client
     @Inject
     private FlightEngine flightEngine;
     
-    @Inject
-    private SearchRQ searchRQ;
+	@Inject
+	SearchRQFactory searchRQFactory;
     
     public void makeRequest(){
-		
-		searchRQ.setArrival_location("LHR");
-		searchRQ.setDeparture_location("FRA");
 		
 		Date flightDate = null;
 		
@@ -46,8 +43,8 @@ public class Client
 			e.printStackTrace();
 		}
 		
-		searchRQ.setFlightDate(flightDate);		
-		
+		SearchRQ searchRQ = searchRQFactory.create("FRA", "LHR", flightDate);
+
 		List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
 		
 		for(SearchRS flightSearchRS : responseList){

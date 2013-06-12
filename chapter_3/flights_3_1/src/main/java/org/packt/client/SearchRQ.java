@@ -6,11 +6,21 @@ import java.util.Set;
 
 import org.packt.utils.OutputPreference;
 
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
+
 public class SearchRQ {
-	private String departure_location;
-	private String arrival_location;
+	private String departureLocation;
+	private String arrivalLocation;
 	private Date flightDate;
 	private Set<OutputPreference> preferences = new HashSet<OutputPreference>();
+	
+	@AssistedInject
+	public SearchRQ(@Assisted("depLoc") String departureLocation,@Assisted("arrivLoc") String arrivalLocation,@Assisted Date flightDate){
+		this.departureLocation = departureLocation;
+		this.arrivalLocation = arrivalLocation;
+		this.flightDate = flightDate;
+	}
 	
 	public Set<OutputPreference> getPreferences() {
 		return preferences;
@@ -21,19 +31,19 @@ public class SearchRQ {
 	}
 
 	public String getDeparture_location() {
-		return departure_location;
+		return departureLocation;
 	}
 
 	public void setDeparture_location(String departureLocation) {
-		departure_location = departureLocation;
+		this.departureLocation = departureLocation;
 	}
 
 	public String getArrival_location() {
-		return arrival_location;
+		return arrivalLocation;
 	}
 
 	public void setArrival_location(String arrivalLocation) {
-		arrival_location = arrivalLocation;
+		this.arrivalLocation = arrivalLocation;
 	}
 
 	public Date getFlightDate() {
@@ -45,3 +55,4 @@ public class SearchRQ {
 	}
 
 }
+

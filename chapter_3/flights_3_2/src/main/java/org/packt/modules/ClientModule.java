@@ -1,12 +1,14 @@
 package org.packt.modules;
 
-import org.packt.client.SearchRQ;
+import org.packt.client.SearchRQFactory;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 public class ClientModule extends AbstractModule {
 	@Override
 	protected void configure() {
-		bind(SearchRQ.class).toInstance(new SearchRQ());
+		FactoryModuleBuilder fb =  new FactoryModuleBuilder();		
+		install(fb.build(SearchRQFactory.class));
 	}
 }
