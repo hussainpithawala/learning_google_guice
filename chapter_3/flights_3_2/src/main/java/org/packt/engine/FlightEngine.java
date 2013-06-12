@@ -8,8 +8,8 @@ import java.util.Set;
 
 import org.packt.client.SearchRQ;
 import org.packt.exceptions.NoCriteriaMatchException;
-import org.packt.exceptions.NoXlAvailableException;
 import org.packt.exceptions.NoFlightAvailableException;
+import org.packt.exceptions.NoXlAvailableException;
 import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
@@ -19,6 +19,7 @@ import org.packt.utils.OutputPreference;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
 public class FlightEngine {
 	
@@ -29,7 +30,7 @@ public class FlightEngine {
 
 	@Inject
 	private XlCheckedProvider<FlightSupplier> xlCheckedProvider;
-	
+		
 	private Set<FlightSupplier> extraSuppliers;
 
 	@Inject
@@ -78,6 +79,7 @@ public class FlightEngine {
 			}
 			
 			xlCheckedProvider.get().getResults();
+//			flightSupplier.getResults();
 			
 		} catch (NoXlAvailableException e) {
 			e.printStackTrace();

@@ -2,11 +2,13 @@ package org.packt.modules;
 
 import java.util.Set;
 
+import org.packt.exceptions.NoXlAvailableException;
 import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.JSONSupplier;
 import org.packt.supplier.XMLSupplier;
+import org.packt.supplier.XlSupplier;
 import org.packt.supplier.provider.CSVSupplierProvider;
 import org.packt.supplier.provider.MessageProvider;
 import org.packt.supplier.provider.XlCheckedProvider;
@@ -16,7 +18,9 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
+import com.google.inject.name.Named;
 import com.google.inject.name.Names;
+import com.google.inject.throwingproviders.CheckedProvides;
 import com.google.inject.throwingproviders.ThrowingProviderBinder;
 public class FlightEngineModule extends AbstractModule {
 
@@ -25,10 +29,24 @@ public class FlightEngineModule extends AbstractModule {
 
 		bind(FlightSupplier.class).annotatedWith(CSV.class).toProvider(CSVSupplierProvider.class).in(InScope.class);
 
+		/**
+		 * This statement needs to be commented out
+		 * in case we need to use @CheckedProvides as
+		 * Guice will flag an exception during runtime
+		 * once we try to prepare exactly similar bindings
+		 * for a Key.
+		 */
 		ThrowingProviderBinder.create(binder()).
 			bind(XlCheckedProvider.class, FlightSupplier.class).
 				to(XlCheckedSupplierProvider.class);
 		
+		/**
+		 * This statement needs to be uncommented
+		 * once we plan to use @CheckedProvides rather
+		 * than the concrete implementation.
+		 * 
+		install(ThrowingProviderBinder.forModule(this));
+		*/
 		bind(FlightSupplier.class).
 			annotatedWith(Names.named("xmlSupplier")).
 				to(XMLSupplier.class).asEagerSingleton();
@@ -42,4 +60,13 @@ public class FlightEngineModule extends AbstractModule {
 		 multiBinder.addBinding().to(XMLSupplier.class).asEagerSingleton();
 		 multiBinder.addBinding().toInstance(new JSONSupplier());
 	}
+	/**
+	 * Uncomment the following method in case we need to 
+	 * use the @CheckedProvides implementation over the concrete
+	 * type
+	@CheckedProvides(XlCheckedProvider.class)
+	public FlightSupplier provideXlCheckedProvider() throws NoXlAvailableException{
+		return new XlSupplier();
+	}
+	*/
 }

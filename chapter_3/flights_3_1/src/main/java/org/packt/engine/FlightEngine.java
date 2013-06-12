@@ -25,10 +25,21 @@ public class FlightEngine {
 	
 	private FlightSupplier xmlFlightSupplier;
 	
+	private FlightSupplier jsonSupplier;
+
+	@Inject
+	public void setJsonSupplier(@Named("jsonSupplier")FlightSupplier jsonSupplier) {
+		this.jsonSupplier = jsonSupplier;
+	}
+
+	public FlightSupplier getJsonSupplier() {
+		return jsonSupplier;
+	}
+
 	public FlightSupplier getXmlFlightSupplier() {
 		return xmlFlightSupplier;
 	}
-
+	
 	@Inject
 	public void setXmlFlightSupplier(@Named("xmlSupplier")FlightSupplier xmlFlightSupplier) {
 		this.xmlFlightSupplier = xmlFlightSupplier;
