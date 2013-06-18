@@ -8,7 +8,7 @@ import org.packt.utils.OutputPreference;
 
 import com.google.inject.servlet.RequestScoped;
 
-@RequestScoped
+//@RequestScoped
 public class SearchRQ {
 	private String departure_location;
 	private String arrival_location;

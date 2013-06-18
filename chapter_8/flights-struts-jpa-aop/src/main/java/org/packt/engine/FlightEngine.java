@@ -9,6 +9,7 @@ import java.util.Set;
 import org.packt.client.SearchRQ;
 import org.packt.exceptions.NoCriteriaMatchException;
 import org.packt.exceptions.NoFlightAvailableException;
+import org.packt.intercerptor.WrapIt;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.SearchRS;
@@ -51,6 +52,7 @@ public class FlightEngine {
 		this.messages = messages;
 	}
 	
+	@WrapIt
 	public List<SearchRS> processRequest(SearchRQ flightSearchRQ) {
 		List<SearchRS> responseList = new ArrayList<SearchRS>();	
 

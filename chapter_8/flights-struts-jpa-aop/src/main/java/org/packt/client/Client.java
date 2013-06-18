@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.packt.engine.FlightEngine;
+import org.packt.intercerptor.WrapIt;
 import org.packt.modules.MainModule;
 import org.packt.supplier.SearchRS;
 
@@ -46,6 +47,7 @@ public class Client {
     	client.stopService();
 	}
 	
+	@WrapIt
 	public void makeRequest() {
 		
 		searchRQ.setArrival_location("MAD");
