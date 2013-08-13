@@ -15,7 +15,7 @@ import org.packt.engine.FlightEngine;
 import org.packt.supplier.CSV;
 import org.packt.supplier.CSVSupplier;
 import org.packt.supplier.FlightSupplier;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.SearchResponse;
 import org.packt.supplier.XMLSupplier;
 import org.packt.utils.FlightUtils;
 
@@ -88,7 +88,7 @@ public class Client
         class ClientModule extends AbstractModule{
     		@Override
     		protected void configure() {
-    			bind(SearchRQ.class).toInstance(new SearchRQ());
+    			bind(SearchRequest.class).toInstance(new SearchRequest());
     		}
         }
         
@@ -115,12 +115,12 @@ public class Client
     private FlightEngine flightEngine;
     
     @Inject
-    private SearchRQ searchRQ;
+    private SearchRequest searchRequest;
     
     public void makeRequest(){
 		
-		searchRQ.setArrival_location("LHR");
-		searchRQ.setDeparture_location("FRA");
+		searchRequest.setArrival_location("LHR");
+		searchRequest.setDeparture_location("FRA");
 		
 		Date flightDate = null;
 		
@@ -130,11 +130,11 @@ public class Client
 			e.printStackTrace();
 		}
 		
-		searchRQ.setFlightDate(flightDate);		
+		searchRequest.setFlightDate(flightDate);		
 		
-		List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
+		List<SearchResponse> responseList = flightEngine.processRequest(searchRequest);
 		
-		for(SearchRS flightSearchRS : responseList){
+		for(SearchResponse flightSearchRS : responseList){
 			System.out.println(flightSearchRS.getArrivalLocation() + " - "+flightSearchRS.getDepartureLocation());
 		}
     	

@@ -1,12 +1,16 @@
 package org.packt.client;
 
 import static org.packt.utils.FlightUtils.parseDate;
+
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+
 import org.packt.engine.FlightEngine;
 import org.packt.supplier.CSVSupplier;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.FlightSupplier;
+import org.packt.supplier.SearchResponse;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -23,7 +27,8 @@ public class Client
         class CSVSupplierModule extends AbstractModule{
     		@Override
     		public void configure() {
-    			bindConstant().annotatedWith(Names.named("csvPath")).to("./flightCSV/");
+    			bind(String.class).annotatedWith(Names.named("csvPath")).toInstance("./flightCSV");
+    			bind(FlightSupplier.class).to(CSVSupplier.class);
     		}
         }
         
@@ -41,10 +46,10 @@ public class Client
     
     public void makeRequest(){
     	
-    	SearchRQ searchRQ = new SearchRQ();
+    	SearchRequest searchRequest = new SearchRequest();
 		
-		searchRQ.setArrival_location("LHR");
-		searchRQ.setDeparture_location("FRA");
+		searchRequest.setArrival_location("LHR");
+		searchRequest.setDeparture_location("FRA");
 		
 		Date flightDate = null;
 		
@@ -54,11 +59,11 @@ public class Client
 			e.printStackTrace();
 		}
 		
-		searchRQ.setFlightDate(flightDate);		
+		searchRequest.setFlightDate(flightDate);		
 		
-		List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
+		List<SearchResponse> responseList = flightEngine.processRequest(searchRequest);
 		
-		for(SearchRS flightSearchRS : responseList){
+		for(SearchResponse flightSearchRS : responseList){
 			System.out.println(flightSearchRS.getArrivalLocation() + " - "+flightSearchRS.getDepartureLocation());
 		}
     	

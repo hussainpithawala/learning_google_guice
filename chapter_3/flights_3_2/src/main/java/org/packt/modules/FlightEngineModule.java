@@ -2,17 +2,17 @@ package org.packt.modules;
 
 import java.util.Set;
 
-import org.packt.exceptions.NoXlAvailableException;
+import org.packt.exceptions.NoExcelAvailableException;
 import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.JSONSupplier;
 import org.packt.supplier.XMLSupplier;
-import org.packt.supplier.XlSupplier;
+import org.packt.supplier.ExcelSupplier;
 import org.packt.supplier.provider.CSVSupplierProvider;
 import org.packt.supplier.provider.MessageProvider;
-import org.packt.supplier.provider.XlCheckedProvider;
-import org.packt.supplier.provider.XlCheckedSupplierProvider;
+import org.packt.supplier.provider.ExcelCheckedProvider;
+import org.packt.supplier.provider.ExcelCheckedSupplierProvider;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
@@ -37,8 +37,8 @@ public class FlightEngineModule extends AbstractModule {
 		 * for a Key.
 		 */
 		ThrowingProviderBinder.create(binder()).
-			bind(XlCheckedProvider.class, FlightSupplier.class).
-				to(XlCheckedSupplierProvider.class);
+			bind(ExcelCheckedProvider.class, FlightSupplier.class).
+				to(ExcelCheckedSupplierProvider.class);
 		
 		/**
 		 * This statement needs to be uncommented
@@ -64,9 +64,9 @@ public class FlightEngineModule extends AbstractModule {
 	 * Uncomment the following method in case we need to 
 	 * use the @CheckedProvides implementation over the concrete
 	 * type
-	@CheckedProvides(XlCheckedProvider.class)
-	public FlightSupplier provideXlCheckedProvider() throws NoXlAvailableException{
-		return new XlSupplier();
+	@CheckedProvides(ExcelCheckedProvider.class)
+	public FlightSupplier provideXlCheckedProvider() throws NoExcelAvailableException{
+		return new ExcelSupplier();
 	}
 	*/
 }

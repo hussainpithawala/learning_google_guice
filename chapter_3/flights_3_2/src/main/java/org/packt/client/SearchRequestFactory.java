@@ -4,6 +4,6 @@ import java.util.Date;
 
 import com.google.inject.assistedinject.Assisted;
 
-public interface SearchRQFactory {
+public interface SearchRequestFactory {
 	SearchRequest create(@Assisted("depLoc") String depLoc,@Assisted("arrivLoc") String arrivLoc,Date flightDate);
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.packt.engine.FlightEngine;
 import org.packt.modules.MainModule;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.SearchResponse;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -31,7 +31,7 @@ public class Client
     private FlightEngine flightEngine;
     
 	@Inject
-	SearchRQFactory searchRQFactory;
+	SearchRequestFactory searchRequestFactory;
     
     public void makeRequest(){
 		
@@ -43,11 +43,11 @@ public class Client
 			e.printStackTrace();
 		}
 		
-		SearchRQ searchRQ = searchRQFactory.create("FRA", "LHR", flightDate);
+		SearchRequest searchRequest = searchRequestFactory.create("FRA", "LHR", flightDate);
 
-		List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
+		List<SearchResponse> responseList = flightEngine.processRequest(searchRequest);
 		
-		for(SearchRS flightSearchRS : responseList){
+		for(SearchResponse flightSearchRS : responseList){
 			System.out.println(flightSearchRS.getArrivalLocation() + " - "+flightSearchRS.getDepartureLocation());
 		}
     	

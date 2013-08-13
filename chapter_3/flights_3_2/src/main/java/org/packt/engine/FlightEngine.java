@@ -6,15 +6,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import org.packt.client.SearchRQ;
+import org.packt.client.SearchRequest;
 import org.packt.exceptions.NoCriteriaMatchException;
 import org.packt.exceptions.NoFlightAvailableException;
-import org.packt.exceptions.NoXlAvailableException;
+import org.packt.exceptions.NoExcelAvailableException;
 import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
-import org.packt.supplier.SearchRS;
-import org.packt.supplier.provider.XlCheckedProvider;
+import org.packt.supplier.SearchResponse;
+import org.packt.supplier.provider.ExcelCheckedProvider;
 import org.packt.utils.OutputPreference;
 
 import com.google.inject.Inject;
@@ -29,7 +29,7 @@ public class FlightEngine {
 	private Provider<FlightSupplier> csvSupplierProvider;
 
 	@Inject
-	private XlCheckedProvider<FlightSupplier> xlCheckedProvider;
+	private ExcelCheckedProvider<FlightSupplier> excelCheckedProvider;
 		
 	private Set<FlightSupplier> extraSuppliers;
 
@@ -54,13 +54,13 @@ public class FlightEngine {
 		this.messages = messages;
 	}
 	
-	public List<SearchRS> processRequest(SearchRQ flightSearchRQ) {
-		List<SearchRS> responseList = new ArrayList<SearchRS>();	
+	public List<SearchResponse> processRequest(SearchRequest flightSearchRQ) {
+		List<SearchResponse> responseList = new ArrayList<SearchResponse>();	
 
 		boolean criteriaMatch = false;
 		
 		try {
-			for(SearchRS flightSearchRS : csvSupplierProvider.get().getResults()){
+			for(SearchResponse flightSearchRS : csvSupplierProvider.get().getResults()){
 				if(flightSearchRS.getArrivalLocation().equals(
 						flightSearchRQ.getArrival_location())
 						||
@@ -78,10 +78,10 @@ public class FlightEngine {
 				}
 			}
 			
-			xlCheckedProvider.get().getResults();
+			excelCheckedProvider.get().getResults();
 //			flightSupplier.getResults();
 			
-		} catch (NoXlAvailableException e) {
+		} catch (NoExcelAvailableException e) {
 			e.printStackTrace();
 		}
 		
@@ -91,9 +91,9 @@ public class FlightEngine {
 			throw new NoFlightAvailableException("No flights found for given specified date");
 		
 		if(flightSearchRQ.getPreferences().contains(OutputPreference.DURATION)){
-			Collections.sort(responseList, new Comparator<SearchRS>() {
+			Collections.sort(responseList, new Comparator<SearchResponse>() {
 				@Override
-				public int compare(SearchRS o1, SearchRS o2) {					
+				public int compare(SearchResponse o1, SearchResponse o2) {					
 					int result = 0;
 					
 					if(o1.getFlightDuration() > o2.getFlightDuration())

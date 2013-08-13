@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.packt.client.SearchRQ;
+import org.packt.client.SearchRequest;
 import org.packt.exceptions.NoCriteriaMatchException;
 import org.packt.exceptions.NoFlightAvailableException;
-import org.packt.supplier.CSVSupplier;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.FlightSupplier;
+import org.packt.supplier.SearchResponse;
 import org.packt.utils.OutputPreference;
 
 import com.google.inject.Inject;
@@ -17,23 +17,22 @@ import com.google.inject.Inject;
 public class FlightEngine {
 	
 	@Inject
-	private CSVSupplier cSVSupplier;
+	private FlightSupplier flightSupplier;
 	
-	
-	public CSVSupplier getCSVSupplier() {
-		return cSVSupplier;
+	public FlightSupplier getFlightSupplier() {
+		return flightSupplier;
 	}
 
-	public void setCSVSupplier(CSVSupplier cSVSupplier) {
-		this.cSVSupplier = cSVSupplier;
+	public void setFlightSupplier(FlightSupplier flightSupplier) {
+		this.flightSupplier = flightSupplier;
 	}
 
-	public List<SearchRS> processRequest(SearchRQ flightSearchRQ) {
-		List<SearchRS> responseList = new ArrayList<SearchRS>();	
+	public List<SearchResponse> processRequest(SearchRequest flightSearchRQ) {
+		List<SearchResponse> responseList = new ArrayList<SearchResponse>();	
 
 		boolean criteriaMatch = false;
 
-		for(SearchRS flightSearchRS : cSVSupplier.getResults()){
+		for(SearchResponse flightSearchRS : flightSupplier.getResults()){
 			if(flightSearchRS.getArrivalLocation().equals(
 					flightSearchRQ.getArrival_location())
 					||
@@ -57,9 +56,9 @@ public class FlightEngine {
 			throw new NoFlightAvailableException("No flights found for given specified date");
 		
 		if(flightSearchRQ.getPreferences().contains(OutputPreference.DURATION)){
-			Collections.sort(responseList, new Comparator<SearchRS>() {
+			Collections.sort(responseList, new Comparator<SearchResponse>() {
 				@Override
-				public int compare(SearchRS o1, SearchRS o2) {					
+				public int compare(SearchResponse o1, SearchResponse o2) {					
 					// TODO Auto-generated method stub
 					int result = 0;
 					

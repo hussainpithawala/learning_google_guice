@@ -15,8 +15,8 @@ import au.com.bytecode.opencsv.CSVReader;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-public class CSVSupplier {
-	Set<SearchRS> searchResponses = new TreeSet<SearchRS>();
+public class CSVSupplier implements FlightSupplier{
+	Set<SearchResponse> searchResponses = new TreeSet<SearchResponse>();
 	
 	@Inject @Named("csvPath")
 	private String csvPath;
@@ -33,7 +33,7 @@ public class CSVSupplier {
 	
 	}
 
-	public Set<SearchRS> getResults() {
+	public Set<SearchResponse> getResults() {
 		if(searchResponses.isEmpty()){
 			loadCSVFiles();
 		}
@@ -60,7 +60,7 @@ public class CSVSupplier {
 						
 						while ((nextLine = reader.readNext()) != null) {
 
-							SearchRS flightSearchRS = new SearchRS();
+							SearchResponse flightSearchRS = new SearchResponse();
 
 							flightSearchRS.setFlightNumber(nextLine[0]);
 							flightSearchRS.setDepartureLocation(nextLine[1]);

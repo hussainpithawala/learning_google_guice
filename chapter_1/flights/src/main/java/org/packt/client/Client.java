@@ -4,10 +4,10 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import org.packt.client.consumer.SearchRQ;
+import org.packt.client.consumer.SearchRequest;
 import org.packt.client.engine.FlightEngine;
 import org.packt.client.producer.CSVSupplier;
-import org.packt.client.producer.SearchRS;
+import org.packt.client.producer.SearchResponse;
 
 import static org.packt.client.utils.FlightUtils.parseDate;
 
@@ -32,10 +32,10 @@ public class Client
     
     public void makeRequest(){
     	    	
-    	SearchRQ searchRQ = new SearchRQ();
+    	SearchRequest searchRequest = new SearchRequest();
 		
-		searchRQ.setArrival_location("LHR");
-		searchRQ.setDeparture_location("FRA");
+		searchRequest.setArrival_location("LHR");
+		searchRequest.setDeparture_location("FRA");
 		
 		Date flightDate = null;
 		
@@ -45,11 +45,11 @@ public class Client
 			e.printStackTrace();
 		}
 		
-		searchRQ.setFlightDate(flightDate);		
+		searchRequest.setFlightDate(flightDate);		
 		
-		List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
+		List<SearchResponse> responseList = flightEngine.processRequest(searchRequest);
 		
-		for(SearchRS flightSearchRS : responseList){
+		for(SearchResponse flightSearchRS : responseList){
 			System.out.println(flightSearchRS.getArrivalLocation() + " - "+flightSearchRS.getDepartureLocation());
 		}
     	

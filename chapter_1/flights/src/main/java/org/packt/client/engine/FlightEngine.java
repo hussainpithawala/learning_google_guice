@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.packt.client.consumer.SearchRQ;
+import org.packt.client.consumer.SearchRequest;
 import org.packt.client.exceptions.NoCriteriaMatchException;
 import org.packt.client.exceptions.NoFlightAvailableException;
 import org.packt.client.producer.CSVSupplier;
-import org.packt.client.producer.SearchRS;
+import org.packt.client.producer.SearchResponse;
 import org.packt.client.utils.OutputPreference;
 
 public class FlightEngine {
@@ -19,12 +19,12 @@ public class FlightEngine {
 		this.csvSupplier = csvSupplier;
 	}
 
-	public List<SearchRS> processRequest(SearchRQ flightSearchRQ) {
-		List<SearchRS> responseList = new ArrayList<SearchRS>();	
+	public List<SearchResponse> processRequest(SearchRequest flightSearchRQ) {
+		List<SearchResponse> responseList = new ArrayList<SearchResponse>();	
 
 		boolean criteriaMatch = false;
 
-		for(SearchRS flightSearchRS : csvSupplier.getResults()){
+		for(SearchResponse flightSearchRS : csvSupplier.getResults()){
 			if(flightSearchRS.getArrivalLocation().equals(
 					flightSearchRQ.getArrival_location())
 					||
@@ -48,9 +48,9 @@ public class FlightEngine {
 			throw new NoFlightAvailableException("No flights found for given specified date");
 		
 		if(flightSearchRQ.getPreferences().contains(OutputPreference.DURATION)){
-			Collections.sort(responseList, new Comparator<SearchRS>() {
+			Collections.sort(responseList, new Comparator<SearchResponse>() {
 				@Override
-				public int compare(SearchRS o1, SearchRS o2) {					
+				public int compare(SearchResponse o1, SearchResponse o2) {					
 					int result = 0;
 					
 					if(o1.getFlightDuration() > o2.getFlightDuration())
