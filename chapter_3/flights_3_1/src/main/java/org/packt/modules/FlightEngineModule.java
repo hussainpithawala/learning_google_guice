@@ -21,6 +21,8 @@ public class FlightEngineModule extends AbstractModule {
 		bind(FlightSupplier.class).
 			annotatedWith(Names.named("xmlSupplier")).
 				to(XMLSupplier.class).asEagerSingleton();
+		bind(String.class).annotatedWith(Names.named("csvFolder")).toInstance(
+				"./flightCSV");
 	}
 	
 	@Provides

@@ -2,25 +2,21 @@ package org.packt.modules;
 
 import java.util.Set;
 
-import org.packt.exceptions.NoExcelAvailableException;
 import org.packt.scope.InScope;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
 import org.packt.supplier.JSONSupplier;
 import org.packt.supplier.XMLSupplier;
-import org.packt.supplier.ExcelSupplier;
 import org.packt.supplier.provider.CSVSupplierProvider;
-import org.packt.supplier.provider.MessageProvider;
 import org.packt.supplier.provider.ExcelCheckedProvider;
 import org.packt.supplier.provider.ExcelCheckedSupplierProvider;
+import org.packt.supplier.provider.MessageProvider;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
-import com.google.inject.name.Named;
 import com.google.inject.name.Names;
-import com.google.inject.throwingproviders.CheckedProvides;
 import com.google.inject.throwingproviders.ThrowingProviderBinder;
 public class FlightEngineModule extends AbstractModule {
 

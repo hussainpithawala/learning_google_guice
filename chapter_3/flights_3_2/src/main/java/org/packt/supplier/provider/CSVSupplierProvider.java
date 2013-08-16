@@ -1,7 +1,6 @@
 package org.packt.supplier.provider;
 
 import java.io.File;
-import java.util.Calendar;
 
 import org.packt.supplier.CSVSupplier;
 
@@ -28,7 +27,7 @@ public class CSVSupplierProvider implements Provider<CSVSupplier> {
 	}
 	
 	public boolean inScope(){
-		Long currentTimestamp = Calendar.getInstance().getTime().getTime();
-		return ((currentTimestamp - timeStamp) > 6000 ? false : true);	// Let it go out of scope after 60 seconds.
+		Long currentTimestamp = System.currentTimeMillis();
+		return ((currentTimestamp - timeStamp) > 60000 ? false : true);	// Let it go out of scope after 60 seconds.
 	}
 }
