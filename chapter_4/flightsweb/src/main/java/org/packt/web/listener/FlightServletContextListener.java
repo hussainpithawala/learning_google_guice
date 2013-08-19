@@ -21,20 +21,26 @@ public class FlightServletContextListener extends GuiceServletContextListener {
 
 	@Override
 	protected Injector getInjector() {
-		
-		return Guice.createInjector(new ServletModule(){
+
+		return Guice.createInjector(new ServletModule() {
 			@Override
 			protected void configureServlets() {
 				install(new MainModule());
-				
-				filter("/response").through(Key.get(Filter.class,FlightFilter.class));
-				bind(Filter.class).annotatedWith(FlightFilter.class).to(FlightSearchFilter.class).in(Singleton.class);
 
-				serve("/response").with(Key.get(HttpServlet.class, FlightServe.class));
-				bind(HttpServlet.class).annotatedWith(FlightServe.class).to(FlightServlet.class);
+				filter("/response").through(
+						Key.get(Filter.class, FlightFilter.class));
 				
+				bind(Filter.class).annotatedWith(FlightFilter.class)
+						.to(FlightSearchFilter.class).in(Singleton.class);
+
+				serve("/response").with(
+						Key.get(HttpServlet.class, FlightServe.class));
+				
+				bind(HttpServlet.class).annotatedWith(FlightServe.class).to(
+						FlightServlet.class);
+
 				serve("/").with(IndexServlet.class);
-				
+
 			}
 		});
 	}

@@ -35,7 +35,9 @@ public class FlightEngineModule extends AbstractModule {
 			toProvider(MessageProvider.class).
 				in(Singleton.class);
 		
-		bind(FlightSupplier.class).annotatedWith(Names.named("jpa")).to(FlightJPASupplier.class).in(Singleton.class);
+		bind(FlightSupplier.class)
+			.annotatedWith(Names.named("jpa"))
+				.to(FlightJPASupplier.class).in(Singleton.class);
 
 		Multibinder<FlightSupplier> multiBinder = Multibinder.newSetBinder(binder(),FlightSupplier.class);
 		
