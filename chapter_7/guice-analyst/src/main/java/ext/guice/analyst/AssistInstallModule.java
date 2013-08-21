@@ -7,16 +7,10 @@ import java.util.Set;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 import com.google.inject.AbstractModule;
-import com.google.inject.Binder;
-import com.google.inject.Binding;
 import com.google.inject.Module;
 import com.google.inject.Stage;
-import com.google.inject.spi.BindingTargetVisitor;
-import com.google.inject.spi.DefaultElementVisitor;
 import com.google.inject.spi.Element;
 import com.google.inject.spi.Elements;
-import com.google.inject.spi.ProviderInstanceBinding;
-import com.google.inject.spi.ProviderWithExtensionVisitor;
 
 public class AssistInstallModule extends AbstractModule{
 	
@@ -51,13 +45,14 @@ public class AssistInstallModule extends AbstractModule{
 		/**
 		 * Using the following block below, we analyze the various 
 		 * elements being bound for injection, in various modules.
+		 */
 		System.out.println("Visiting the Elements");
 		
 		AnalyzeElementVisitor defaultElementVisitor = new AnalyzeElementVisitor();
 		for(Element element : Elements.getElements(Stage.DEVELOPMENT,modules)){
 			element.acceptVisitor(defaultElementVisitor);
 		}
-		*/
+		
 	}
 	
 	boolean validateClass(ClassInfo classInfo){
