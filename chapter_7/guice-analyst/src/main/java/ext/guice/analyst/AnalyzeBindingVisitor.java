@@ -42,8 +42,8 @@ public class AnalyzeBindingVisitor extends DefaultBindingTargetVisitor<Object, S
 	/**
 	 * Overridden methods from DefaultBindingTargetVisitor
 	 */
-	public String visit(InstanceBinding<? extends Object> binding){
-		  Key<? extends Object> key = binding.getKey();
+	public String visit(InstanceBinding<?> binding){
+		  Key<?> key = binding.getKey();
 		  System.out.println("Key :" + key.getTypeLiteral());
 		  System.out.println("Annotation : " + key.getAnnotation());
 		  System.out.println("Source : " + binding.getSource());
