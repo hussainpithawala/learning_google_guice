@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.packt.client.SearchRQ;
+import org.packt.client.SearchRequest;
 import org.packt.engine.FlightEngine;
 import org.packt.exceptions.NoCriteriaMatchException;
 import org.packt.exceptions.NoFlightAvailableException;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.SearchResponse;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -30,20 +30,20 @@ public class FlightServlet extends HttpServlet {
 	private FlightEngine flightEngine;
 	
 	@Inject
-	private Provider<SearchRQ> searchRQProvider;
+	private Provider<SearchRequest> searchRequestProvider;
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		try {
 
-			SearchRQ searchRQ = searchRQProvider.get();
-			searchRQ.setArrival_location(request.getParameter("destination"));
-			searchRQ.setDeparture_location(request.getParameter("source"));
+			SearchRequest searchRequest = searchRequestProvider.get();
+			searchRequest.setArrival_location(request.getParameter("destination"));
+			searchRequest.setDeparture_location(request.getParameter("source"));
 
 			Date flightDate = (Date)request.getAttribute("dateObject");
-			searchRQ.setFlightDate(flightDate);
+			searchRequest.setFlightDate(flightDate);
 
-			List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
+			List<SearchResponse> responseList = flightEngine.processRequest(searchRequest);
 			
 			request.getSession().setAttribute("responseList", responseList);
 			request.getSession().setAttribute("isException", false);

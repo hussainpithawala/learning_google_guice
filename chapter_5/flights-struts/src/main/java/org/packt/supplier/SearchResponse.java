@@ -3,20 +3,10 @@ package org.packt.supplier;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-@Entity
-@NamedQueries({
-	@NamedQuery(name="SearchRS.findAll",query="select s from SearchRS s")
-})
-@Table(name="flight")
-public class SearchRS implements Comparable<SearchRS>,Serializable{
+
+public class SearchResponse implements Comparable<SearchResponse>,Serializable{
 	private static final long serialVersionUID = 1L;
-	@Id
-	private Long id;
+	
 	private String flightNumber;
 	private String departureLocation;
 	private String arrivalLocation;
@@ -69,7 +59,7 @@ public class SearchRS implements Comparable<SearchRS>,Serializable{
 		return departTime;
 	}
 	@Override
-	public int compareTo(SearchRS o) {
+	public int compareTo(SearchResponse o) {
 		
 		int result = 0;
 		
@@ -79,12 +69,6 @@ public class SearchRS implements Comparable<SearchRS>,Serializable{
 			result = -1;	
 		
 		return result;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 }

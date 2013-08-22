@@ -13,7 +13,7 @@ import java.util.TreeSet;
 import au.com.bytecode.opencsv.CSVReader;
 
 public class CSVSupplier implements FlightSupplier{
-	Set<SearchRS> searchResponses = new TreeSet<SearchRS>();
+	Set<SearchResponse> searchResponses = new TreeSet<SearchResponse>();
 
 	private File csvFolder;
 	
@@ -29,7 +29,7 @@ public class CSVSupplier implements FlightSupplier{
 	
 	}
 
-	public Set<SearchRS> getResults() {
+	public Set<SearchResponse> getResults() {
 		if(searchResponses.isEmpty()){
 			loadCSVFiles();
 		}
@@ -53,7 +53,7 @@ public class CSVSupplier implements FlightSupplier{
 
 						while ((nextLine = reader.readNext()) != null) {
 
-							SearchRS flightSearchRS = new SearchRS();
+							SearchResponse flightSearchRS = new SearchResponse();
 
 							flightSearchRS.setFlightNumber(nextLine[0]);
 							flightSearchRS.setDepartureLocation(nextLine[1]);

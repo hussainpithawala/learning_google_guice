@@ -4,7 +4,7 @@
              version="2.0">
     <persistence-unit name="flight" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>org.packt.supplier.SearchRS</class> 
+        <class>org.packt.supplier.SearchResponse</class> 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

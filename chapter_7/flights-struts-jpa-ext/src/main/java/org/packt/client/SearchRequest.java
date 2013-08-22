@@ -10,14 +10,14 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 //@RequestScoped
-public class SearchRQ {
+public class SearchRequest {
 	private String departureLocation;
 	private String arrivalLocation;
 	private Date flightDate;
 	private Set<OutputPreference> preferences = new HashSet<OutputPreference>();
 	
 	@AssistedInject
-	public SearchRQ(@Assisted("depLoc") String departureLocation,@Assisted("arrivLoc") String arrivalLocation,@Assisted Date flightDate){
+	public SearchRequest(@Assisted("depLoc") String departureLocation,@Assisted("arrivLoc") String arrivalLocation,@Assisted Date flightDate){
 		this.departureLocation = departureLocation;
 		this.arrivalLocation = arrivalLocation;
 		this.flightDate = flightDate;
@@ -27,7 +27,7 @@ public class SearchRQ {
 		return preferences;
 	}
 
-	public SearchRQ() {
+	public SearchRequest() {
 		this.preferences.add(OutputPreference.FARE);
 	}
 

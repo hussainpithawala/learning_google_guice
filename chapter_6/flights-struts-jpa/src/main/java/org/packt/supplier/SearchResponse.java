@@ -10,10 +10,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 @Entity
 @NamedQueries({
-	@NamedQuery(name="SearchRS.findAll",query="select s from SearchRS s")
+	@NamedQuery(name="SearchResponse.findAll",query="select s from SearchResponse s")
 })
 @Table(name="flight")
-public class SearchRS implements Comparable<SearchRS>,Serializable{
+public class SearchResponse implements Comparable<SearchResponse>,Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	private Long id;
@@ -69,7 +69,7 @@ public class SearchRS implements Comparable<SearchRS>,Serializable{
 		return departTime;
 	}
 	@Override
-	public int compareTo(SearchRS o) {
+	public int compareTo(SearchResponse o) {
 		
 		int result = 0;
 		

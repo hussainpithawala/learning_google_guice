@@ -8,8 +8,8 @@ import org.packt.utils.OutputPreference;
 
 import com.google.inject.servlet.RequestScoped;
 
-@RequestScoped
-public class SearchRQ {
+//@RequestScoped
+public class SearchRequest {
 	private String departure_location;
 	private String arrival_location;
 	private Date flightDate;
@@ -19,7 +19,7 @@ public class SearchRQ {
 		return preferences;
 	}
 
-	public SearchRQ() {
+	public SearchRequest() {
 		this.preferences.add(OutputPreference.FARE);
 	}
 

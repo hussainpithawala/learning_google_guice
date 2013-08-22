@@ -19,10 +19,10 @@ public class FlightJPASupplier implements FlightSupplier {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public Set<SearchRS> getResults() {
-		Query query = entityManagerProvider.get().createNamedQuery("SearchRS.findAll");
-		Set<SearchRS> resultSet = new HashSet<SearchRS>();
-		resultSet.addAll((List<SearchRS>)query.getResultList());
+	public Set<SearchResponse> getResults() {
+		Query query = entityManagerProvider.get().createNamedQuery("SearchResponse.findAll");
+		Set<SearchResponse> resultSet = new HashSet<SearchResponse>();
+		resultSet.addAll((List<SearchResponse>)query.getResultList());
 		return resultSet;
 	}
 }

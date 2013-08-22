@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.packt.engine.FlightEngine;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.SearchResponse;
 
 import com.google.inject.Inject;
 
@@ -16,12 +16,12 @@ public class Client {
 	private FlightEngine flightEngine;
 
 	@Inject
-	private SearchRQ searchRQ;
+	private SearchRequest searchRequest;
 
 	public void makeRequest() {
 
-		searchRQ.setArrival_location("LHR");
-		searchRQ.setDeparture_location("FRA");
+		searchRequest.setArrival_location("LHR");
+		searchRequest.setDeparture_location("FRA");
 
 		Date flightDate = null;
 
@@ -31,11 +31,11 @@ public class Client {
 			e.printStackTrace();
 		}
 
-		searchRQ.setFlightDate(flightDate);
+		searchRequest.setFlightDate(flightDate);
 
-		List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
+		List<SearchResponse> responseList = flightEngine.processRequest(searchRequest);
 
-		for (SearchRS flightSearchRS : responseList) {
+		for (SearchResponse flightSearchRS : responseList) {
 			System.out.println(flightSearchRS.getArrivalLocation() + " - "
 					+ flightSearchRS.getDepartureLocation());
 		}

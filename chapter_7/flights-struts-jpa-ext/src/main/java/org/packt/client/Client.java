@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.packt.engine.FlightEngine;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.SearchResponse;
 
 import com.google.inject.Binding;
 import com.google.inject.Guice;
@@ -70,11 +70,11 @@ public class Client {
 			e.printStackTrace();
 		}
 		
-		SearchRQ searchRQ = searchRQFactory.create("AMS", "MAD", flightDate);
+		SearchRequest searchRequest = searchRQFactory.create("AMS", "MAD", flightDate);
 
-		List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
+		List<SearchResponse> responseList = flightEngine.processRequest(searchRequest);
 
-		for (SearchRS flightSearchRS : responseList) {
+		for (SearchResponse flightSearchRS : responseList) {
 			System.out.println(flightSearchRS.getArrivalLocation() + " - "
 					+ flightSearchRS.getDepartureLocation());
 		}

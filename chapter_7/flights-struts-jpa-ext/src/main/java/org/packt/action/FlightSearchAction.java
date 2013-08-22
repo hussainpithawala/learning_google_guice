@@ -11,10 +11,10 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.packt.client.RequestCounter;
-import org.packt.client.SearchRQ;
+import org.packt.client.SearchRequest;
 import org.packt.client.SearchRQFactory;
 import org.packt.engine.FlightEngine;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.SearchResponse;
 
 import com.google.inject.Inject;
 import com.opensymphony.xwork2.ActionSupport;
@@ -38,7 +38,7 @@ public class FlightSearchAction extends ActionSupport{
 	@Inject
 	private SearchRQFactory searchRQFactory;
 	
-	private List<SearchRS> results;
+	private List<SearchResponse> results;
 	
 	@Action(value="Search",results={@Result(name="success",location="response.jsp")})
 	public String execute() {
@@ -50,7 +50,7 @@ public class FlightSearchAction extends ActionSupport{
 			e.printStackTrace();
 		}
 		
-		SearchRQ flightSearchRQ = searchRQFactory.create(getSource(), getDestination(), flightDate);
+		SearchRequest flightSearchRQ = searchRQFactory.create(getSource(), getDestination(), flightDate);
 		// Updating the request counter;
 		requestCounter.setSearches(requestCounter.getSearches() + 1);
 		results = flightEngine.processRequest(flightSearchRQ);
@@ -85,11 +85,11 @@ public class FlightSearchAction extends ActionSupport{
 		
 	}
 
-	public List<SearchRS> getResults() {
+	public List<SearchResponse> getResults() {
 		return results;
 	}
 
-	public void setResults(List<SearchRS> results) {
+	public void setResults(List<SearchResponse> results) {
 		this.results = results;
 	}
 

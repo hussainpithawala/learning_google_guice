@@ -6,12 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import org.packt.client.SearchRQ;
+import org.packt.client.SearchRequest;
 import org.packt.exceptions.NoCriteriaMatchException;
 import org.packt.exceptions.NoFlightAvailableException;
 import org.packt.supplier.CSV;
 import org.packt.supplier.FlightSupplier;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.SearchResponse;
 import org.packt.utils.OutputPreference;
 
 import com.google.inject.Inject;
@@ -51,13 +51,13 @@ public class FlightEngine {
 		this.messages = messages;
 	}
 	
-	public List<SearchRS> processRequest(SearchRQ flightSearchRQ) {
-		List<SearchRS> responseList = new ArrayList<SearchRS>();	
+	public List<SearchResponse> processRequest(SearchRequest flightSearchRQ) {
+		List<SearchResponse> responseList = new ArrayList<SearchResponse>();	
 
 		boolean criteriaMatch = false;
 
-		//for(SearchRS flightSearchRS : flightSupplierProvider.get().getResults()){
-		for(SearchRS flightSearchRS : flightJPASupplier.getResults()){	
+		//for(SearchResponse flightSearchRS : flightSupplierProvider.get().getResults()){
+		for(SearchResponse flightSearchRS : flightJPASupplier.getResults()){	
 			if(flightSearchRS.getArrivalLocation().equals(
 					flightSearchRQ.getArrival_location())
 					||
@@ -81,9 +81,9 @@ public class FlightEngine {
 			throw new NoFlightAvailableException("No flights found for given specified date");
 		
 		if(flightSearchRQ.getPreferences().contains(OutputPreference.DURATION)){
-			Collections.sort(responseList, new Comparator<SearchRS>() {
+			Collections.sort(responseList, new Comparator<SearchResponse>() {
 				@Override
-				public int compare(SearchRS o1, SearchRS o2) {					
+				public int compare(SearchResponse o1, SearchResponse o2) {					
 					int result = 0;
 					
 					if(o1.getFlightDuration() > o2.getFlightDuration())

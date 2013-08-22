@@ -9,7 +9,7 @@ import java.util.List;
 import org.packt.engine.FlightEngine;
 import org.packt.intercerptor.WrapIt;
 import org.packt.modules.MainModule;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.SearchResponse;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -22,7 +22,7 @@ public class Client {
 	private FlightEngine flightEngine;
 
 	@Inject
-	private SearchRQ searchRQ;
+	private SearchRequest searchRequest;
 
 	@Inject
 	private PersistService persistService;
@@ -50,8 +50,8 @@ public class Client {
 	@WrapIt
 	public void makeRequest() {
 		
-		searchRQ.setArrival_location("MAD");
-		searchRQ.setDeparture_location("AMS");
+		searchRequest.setArrival_location("MAD");
+		searchRequest.setDeparture_location("AMS");
 
 		Date flightDate = null;
 
@@ -61,11 +61,11 @@ public class Client {
 			e.printStackTrace();
 		}
 
-		searchRQ.setFlightDate(flightDate);
+		searchRequest.setFlightDate(flightDate);
 
-		List<SearchRS> responseList = flightEngine.processRequest(searchRQ);
+		List<SearchResponse> responseList = flightEngine.processRequest(searchRequest);
 
-		for (SearchRS flightSearchRS : responseList) {
+		for (SearchResponse flightSearchRS : responseList) {
 			System.out.println(flightSearchRS.getArrivalLocation() + " - "
 					+ flightSearchRS.getDepartureLocation());
 		}

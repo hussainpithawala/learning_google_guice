@@ -5,7 +5,7 @@ import java.util.Set;
 public class XMLSupplier implements FlightSupplier {
 
 	@Override
-	public Set<SearchRS> getResults() {
+	public Set<SearchResponse> getResults() {
 		return null;
 	}
 

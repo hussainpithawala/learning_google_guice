@@ -11,9 +11,9 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.packt.client.RequestCounter;
-import org.packt.client.SearchRQ;
+import org.packt.client.SearchRequest;
 import org.packt.engine.FlightEngine;
-import org.packt.supplier.SearchRS;
+import org.packt.supplier.SearchResponse;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -36,14 +36,14 @@ public class FlightSearchAction extends ActionSupport{
 	private FlightEngine flightEngine;
 	
 	@Inject
-	private Provider<SearchRQ> provider;
+	private Provider<SearchRequest> provider;
 	
-	private List<SearchRS> results;
+	private List<SearchResponse> results;
 	
 	@Action(value="Search",results={@Result(name="success",location="response.jsp")})
 	public String execute() {
 		
-		SearchRQ flightSearchRQ = provider.get();
+		SearchRequest flightSearchRQ = provider.get();
 		
 		flightSearchRQ.setArrival_location(getDestination());
 		flightSearchRQ.setDeparture_location(getSource());
@@ -91,11 +91,11 @@ public class FlightSearchAction extends ActionSupport{
 		
 	}
 
-	public List<SearchRS> getResults() {
+	public List<SearchResponse> getResults() {
 		return results;
 	}
 
-	public void setResults(List<SearchRS> results) {
+	public void setResults(List<SearchResponse> results) {
 		this.results = results;
 	}
 
